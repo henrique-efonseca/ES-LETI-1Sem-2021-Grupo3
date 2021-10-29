@@ -35,12 +35,11 @@ public class app {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Scrum Dashboard");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JButton btnNewButton = new JButton("TESTE");
+		JButton btnNewButton = new JButton("EQUIPA");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnNewButton.setBounds(138, 101, 148, 56);
 		frame.getContentPane().add(btnNewButton);
