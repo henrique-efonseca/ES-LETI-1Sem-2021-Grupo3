@@ -40,7 +40,7 @@ public class app {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("MEITA");
+		JButton btnNewButton = new JButton("TESTE");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		btnNewButton.setBounds(138, 101, 148, 56);
 		frame.getContentPane().add(btnNewButton);
