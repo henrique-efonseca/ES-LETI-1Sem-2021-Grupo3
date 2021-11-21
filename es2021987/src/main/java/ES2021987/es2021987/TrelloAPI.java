@@ -15,9 +15,9 @@ import com.julienvey.trello.impl.http.ApacheHttpClient;
  */
 public class TrelloAPI 
 {
-	private String trelloKey= "a04256995af78e5ea7bff424d82cf477";
-    private String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
-    private String boardID = "60eae4ca19ea426cbba3021a";
+	private static String trelloKey= "a04256995af78e5ea7bff424d82cf477";
+    private static String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
+    private static String boardID = "60eae4ca19ea426cbba3021a";
 	
 	//public String getTrelloKey(){
 	//	return trelloKey;
@@ -31,7 +31,7 @@ public class TrelloAPI
 	//	return trelloKey;
 	//}
 	
-	public void teste(){
+	public static void teste(){
 		Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
 		Board quadro = trelloApi.getBoard(boardID);
 	      //  List<Board> member=trelloApi.getMemberBoards("ricardonunosilvapaulo"); //podem consultar o vosso nome_utilizador na opção "profile and visibility" da vossa conta no trello
@@ -46,9 +46,7 @@ public class TrelloAPI
 	
     public static void main( String[] args )
     {
-    	String trelloKey= "a04256995af78e5ea7bff424d82cf477";
-        String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
-        String boardID = "60eae4ca19ea426cbba3021a";
+    	
         Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
       
         Board board;
