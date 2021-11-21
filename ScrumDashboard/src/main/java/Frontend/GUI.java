@@ -1,10 +1,10 @@
-package GUI;
+package Frontend;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class ScrumDashboard {
+public class GUI {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class ScrumDashboard {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ScrumDashboard window = new ScrumDashboard();
+					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class ScrumDashboard {
 	/**
 	 * Create the application.
 	 */
-	public ScrumDashboard() {
+	public GUI() {
 		initialize();
 	}
 

@@ -1,4 +1,4 @@
-package ScrumDashboard.Backend;
+package Backend;
 import java.util.List;
 
 import com.julienvey.trello.Trello;

@@ -1,4 +1,4 @@
-package ScrumDashboard.Backend;
+package Backend;
 
 public class GitHubAPI {
 
