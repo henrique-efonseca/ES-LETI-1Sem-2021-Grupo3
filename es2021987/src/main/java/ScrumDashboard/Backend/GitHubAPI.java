@@ -1,4 +1,4 @@
-package ES2021987.es2021987;
+package ScrumDashboard.Backend;
 
 public class GitHubAPI {
 
