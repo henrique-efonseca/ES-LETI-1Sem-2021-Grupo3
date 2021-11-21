@@ -1,10 +1,10 @@
+package Frontend;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.Font;
 
-public class app {
+public class GUI {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class app {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					app window = new app();
+					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class app {
 	/**
 	 * Create the application.
 	 */
-	public app() {
+	public GUI() {
 		initialize();
 	}
 
@@ -35,13 +35,9 @@ public class app {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame("Scrum Dashboard");
+		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		JButton btnNewButton = new JButton("EQUIPA");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		btnNewButton.setBounds(138, 101, 148, 56);
-		frame.getContentPane().add(btnNewButton);
 	}
+
 }
