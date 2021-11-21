@@ -52,7 +52,7 @@ public class TrelloAPI
         Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
       
         Board board;
-        
+        teste();
            // List<TList> lists = quadro.fetchLists();
            // for (TList lista : lists) {
            //     System.out.println(lista.getName()+"- "+ lista.getId()+"-"+lista.getIdBoard());
