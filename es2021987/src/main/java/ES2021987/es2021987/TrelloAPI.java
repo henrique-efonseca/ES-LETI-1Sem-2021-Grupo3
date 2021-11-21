@@ -13,7 +13,7 @@ import com.julienvey.trello.impl.http.ApacheHttpClient;
  * Hello world!
  *
  */
-public class App 
+public class TrelloAPI 
 {
 	//private String trelloKey= "a04256995af78e5ea7bff424d82cf477";
     //private String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
@@ -31,7 +31,7 @@ public class App
 	//	return trelloKey;
 	//}
 	
-	public void getBoard(){
+	public void teste(){
 		
 	}
 	
