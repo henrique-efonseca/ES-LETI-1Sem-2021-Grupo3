@@ -1,6 +1,8 @@
 package ES2021987.es2021987;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.julienvey.trello.Trello;
 import com.julienvey.trello.domain.Board;
 import com.julienvey.trello.domain.Card;
@@ -16,13 +18,23 @@ public class TrelloAPI
     private String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
     private String boardID = "60eae4ca19ea426cbba3021a";
     Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
-    private List<TList> lists;
     private Board board = trelloApi.getBoard(boardID);
+    private List<Member> nomes = board.fetchMembers();
+    private List<TList> lists = board.fetchLists();
     
-
+    public void teste3(String s, String card_name){
+	    for (TList l : lists) {
+	    	if(l.getName().equals(s)){
+	    		Card c = new Card();
+	    		c.setName(card_name);
+	    		trelloApi.createCard(l.getId(),c);
+	    		return;
+	    	}
+	    }
+    }
+    
     public String teste2(){ 	
     	 String string = "";
-    	 lists = board.fetchLists();
          for (TList list : lists) {
           	 string += list.getName() + "\r\n";
          }
@@ -35,7 +47,6 @@ public class TrelloAPI
 	      //  for (Board  quadro: member) {
 	    System.out.println(board.getName()+ " - id: " +board.getId());
 	            //board = trelloApi.getBoard(quadro.getId());
-	    List<Member> nomes = board.fetchMembers();
 	    for (Member names : nomes) {
 	    	string += names.getUsername() + "\r\n";
 	    	

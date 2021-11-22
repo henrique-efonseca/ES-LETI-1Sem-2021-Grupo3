@@ -90,6 +90,17 @@ public class ScrumDashboard {
 		btnNewButton.setBounds(25, 109, 126, 28);
 		frame.getContentPane().add(btnNewButton);
 		
+		JButton btnCreateCard = new JButton("Create Card");
+		btnCreateCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String list_name = JOptionPane.showInputDialog("In what list would you like to add a card?");
+				String card_name = JOptionPane.showInputDialog("Card name:");
+				app.teste3(list_name, card_name);
+			}
+		});
+		btnCreateCard.setBounds(25, 147, 126, 28);
+		frame.getContentPane().add(btnCreateCard);
+		
 		
 		
 	}
