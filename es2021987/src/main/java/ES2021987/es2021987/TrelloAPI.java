@@ -3,45 +3,45 @@ import java.util.List;
 
 import com.julienvey.trello.Trello;
 import com.julienvey.trello.domain.Board;
+import com.julienvey.trello.domain.Card;
 import com.julienvey.trello.domain.Member;
 import com.julienvey.trello.domain.Membership;
 import com.julienvey.trello.domain.TList;
 import com.julienvey.trello.impl.TrelloImpl;
 import com.julienvey.trello.impl.http.ApacheHttpClient;
 
-/**
- * Hello world!
- *
- */
 public class TrelloAPI 
 {
 	private String trelloKey= "a04256995af78e5ea7bff424d82cf477";
     private String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
     private String boardID = "60eae4ca19ea426cbba3021a";
-	
-	//public String getTrelloKey(){
-	//	return trelloKey;
-	//}
-	
-	//public String getTrelloKey(){
-	//	return trelloKey;
-	//}
-	
-	//public String getTrelloKey(){
-	//	return trelloKey;
-	//}
-	
-	public void teste(){
-		Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
-		Board quadro = trelloApi.getBoard(boardID);
+    Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
+    private List<TList> lists;
+    private Board board = trelloApi.getBoard(boardID);
+    
+
+    public String teste2(){ 	
+    	 String string = "";
+    	 lists = board.fetchLists();
+         for (TList list : lists) {
+          	 string += list.getName() + "\r\n";
+         }
+         return string;
+    }
+    
+	public String teste(){
+		String string = "";
 	      //  List<Board> member=trelloApi.getMemberBoards("ricardonunosilvapaulo"); //podem consultar o vosso nome_utilizador na opção "profile and visibility" da vossa conta no trello
 	      //  for (Board  quadro: member) {
-	    System.out.println(quadro.getName()+ " - id: " +quadro.getId());
+	    System.out.println(board.getName()+ " - id: " +board.getId());
 	            //board = trelloApi.getBoard(quadro.getId());
-	    List<Member> nomes = quadro.fetchMembers();
+	    List<Member> nomes = board.fetchMembers();
 	    for (Member names : nomes) {
-	    	System.out.println(names.getUsername());
+	    	string += names.getUsername() + "\r\n";
+	    	
 	    }
+	    //System.out.println(string);
+	    return string;
 	}
 	
     public static void main( String[] args )
@@ -52,7 +52,7 @@ public class TrelloAPI
         Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
       
         Board board;
-        teste();
+       // teste();
            // List<TList> lists = quadro.fetchLists();
            // for (TList lista : lists) {
            //     System.out.println(lista.getName()+"- "+ lista.getId()+"-"+lista.getIdBoard());
