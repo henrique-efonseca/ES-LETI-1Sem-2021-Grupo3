@@ -19,7 +19,7 @@ public class Info extends JFrame {
 	private TrelloLogin trello;
 
 	/**
-	 * Launch the application.
+	 * Launch the appli
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
