@@ -37,14 +37,7 @@ public class TrelloAPI
     private List<TList> lists;
     private List<Card> cards;
     
-    
-    
-    
-    
-    
-    
-    
-    
+      
     
     public List<JPanel> pieChart(List<Tabela> tabelas, int n, String info){
     	List<JPanel> charts = new ArrayList<>();
@@ -78,11 +71,6 @@ public class TrelloAPI
     	 JOptionPane.showMessageDialog(null, c, info, JOptionPane.PLAIN_MESSAGE);
     	return charts;
     }
-    
-    
-    
-    
-    
     
     
     
