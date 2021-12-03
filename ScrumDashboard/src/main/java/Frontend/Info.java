@@ -17,7 +17,7 @@ public class Info extends JFrame {
 
 	private JPanel contentPane;
 	private TrelloLogin trello;
-
+	private GithubLogin git;
 	/**
 	 * Launch the application.
 	 */
@@ -56,14 +56,21 @@ public class Info extends JFrame {
 		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setBackground(new Color(255, 255, 240));
 		btnNewButton.setFont(new Font("Arial Black", Font.BOLD, 25));
-		btnNewButton.setBounds(0, 0, 316, 397);
+		btnNewButton.setBounds(0, 0, 329, 397);
 		contentPane.add(btnNewButton);
 		
 		JButton btnGithub = new JButton("GITHUB");
+		btnGithub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				git= new GithubLogin(); 
+				git.setVisible(true);
+			}
+		});
 		btnGithub.setForeground(Color.WHITE);
 		btnGithub.setFont(new Font("Arial Black", Font.BOLD, 25));
 		btnGithub.setBackground(Color.DARK_GRAY);
-		btnGithub.setBounds(315, 0, 329, 397);
+		btnGithub.setBounds(325, 0, 319, 397);
 		contentPane.add(btnGithub);
 	}
 }
