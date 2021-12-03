@@ -33,7 +33,7 @@ import Backend.TrelloAPI;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JTable;
 
-public class Trello {
+public class Trello{
 
 	private JFrame frame;
 	private final TrelloAPI app = new TrelloAPI();
@@ -307,6 +307,7 @@ public class Trello {
 		btnData_1_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		btnData_1_1_1_1_1.setBounds(45, 682, 149, 40);
 		frame.getContentPane().add(btnData_1_1_1_1_1);
+		
 		
 		//--------------------------------------------------------//
 		
