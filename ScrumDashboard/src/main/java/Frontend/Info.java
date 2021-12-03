@@ -19,7 +19,7 @@ public class Info extends JFrame {
 	private TrelloLogin trello;
 	private GithubLogin git;
 	/**
-	 * Launch the application.
+	 * launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
