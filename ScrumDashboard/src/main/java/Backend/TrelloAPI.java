@@ -1,4 +1,7 @@
 package Backend;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +39,32 @@ public class TrelloAPI
     private List<Member> nomes;
     private List<TList> lists;
     private List<Card> cards;
+    private List<Tabela> tempo = new ArrayList<>();
+    private List<Tabela> custo = new ArrayList<>();
+    
+    
+    public void toCSV() throws IOException{
+    	if(tempo.isEmpty()) tempo=tempoSprints();
+    	
+        try (FileWriter csv = new FileWriter(new File("test.csv"))) {
+				for(Tabela tabela: tempo){
+					csv.write(tabela.getTitle()+"\n");
+					int c = 0;
+					for(Member m : nomes){
+							int realizadas = (int) tabela.getObject(c,1);
+							if(tabela.getTitle().equals("Total")){
+								csv.write(tabela.getObject(c,0)+","+realizadas+"\n");
+							}
+							else{
+								int previstas = (int) tabela.getObject(c,2);
+								csv.write(tabela.getObject(c,0)+","+realizadas+","+previstas+"\n");
+							}					
+						c++;
+					}
+				}				
+        }
+	}
+ 
     
     
     public List<JPanel> pieChart(List<Tabela> tabelas, int n, String info){
@@ -60,9 +89,9 @@ public class TrelloAPI
 				 	            true,
 				 	            false);
 				 	            
-				 	 charts.add(new ChartPanel(chart)); 
-			    	 count++;  
+				 	 charts.add(new ChartPanel(chart)); 		    	
 	    		 }
+	    		 count++;  
 	    	 }
 	    	 count=1;
     	}
@@ -94,7 +123,7 @@ public class TrelloAPI
     		row++;
     	}
     	
-    	List<Tabela> tabelas = new ArrayList<>();
+       custo = new ArrayList<>();
     	
     	for(String sprint: sprints){
     		resetMap(realizados);
@@ -117,7 +146,7 @@ public class TrelloAPI
 	    	t.addColumnName("Username",0);
 	    	t.addColumnName("Custo recursos humanos (€)",1);
 	    	t.createScrollPane();
-	    	tabelas.add(t);
+	    	custo.add(t);
 	    	
 	    }
     	resetMap(realizados);
@@ -134,9 +163,8 @@ public class TrelloAPI
     	t.addColumnName("Username",0);
     	t.addColumnName("Custo recursos humanos (€)",1);
     	t.createScrollPane();
-    	tabelas.add(t);
-    	pieChart(tabelas,1,"CUSTO RECURSOS HUMANOS (€)");
-    	return tabelas;
+    	custo.add(t);
+    	return custo;
     }
    
     public List<Tabela> tempoSprints(){
@@ -151,7 +179,7 @@ public class TrelloAPI
     		row++;
     	}
     	
-    	List<Tabela> tabelas = new ArrayList<>();
+    	tempo = new ArrayList<>();
     	
     	for(String sprint: sprints){
     		resetMap(realizados);
@@ -177,11 +205,11 @@ public class TrelloAPI
 	    	t.addColumnName("Tempo realizado (min)",1);
 	    	t.addColumnName("Tempo previsto (min)",2);
 	    	t.createScrollPane();
-	    	tabelas.add(t);
+	    	tempo.add(t);
 	    }
     	resetMap(realizados);
 		resetMap(previstos);
-		pieChart(tabelas,2,"TOTAL DE TEMPO (MIN)");
+		//pieChart(tabelas,2,"TOTAL DE TEMPO (MIN)");
 		
 		Tabela t = new Tabela("Total", row, 2);
     	for (Card c : cards) contarHoras(c,realizados,previstos);  
@@ -195,9 +223,9 @@ public class TrelloAPI
     	t.addColumnName("Tempo total (min)",1);
     	t.createScrollPane();
   
-    	tabelas.add(t);
+    	tempo.add(t);
 
-    	return tabelas;
+    	return tempo;
     }
     
     public void resetMap(HashMap<String, Integer> map){
@@ -236,7 +264,8 @@ public class TrelloAPI
     	}
     	return s;
     }
-    
+  
+    //MELHORAR COM O GETLIST PELO ID
     public String sprintsText(){
     	String s="";
     	

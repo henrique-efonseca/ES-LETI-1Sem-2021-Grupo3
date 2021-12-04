@@ -12,6 +12,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -291,6 +292,7 @@ public class Trello {
 		btnData_1_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Tabela> tabelas = app.tempoSprints();
+				app.pieChart(tabelas,2,"TOTAL DE TEMPO (MIN)");
 				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);	
 			}
 		});
@@ -311,12 +313,34 @@ public class Trello {
 		btnData_1_1_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Tabela> tabelas = app.recursosHumanos();
+				app.pieChart(tabelas,1,"CUSTO RECURSOS HUMANOS (€)");
 				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);	
 			}
 		});
 		btnData_1_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		btnData_1_1_1_1_1.setBounds(45, 682, 149, 40);
 		frame.getContentPane().add(btnData_1_1_1_1_1);
+		
+		JButton btnData_1_1_1_1_1_1 = new JButton("CSV");
+		btnData_1_1_1_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					app.toCSV();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnData_1_1_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+		btnData_1_1_1_1_1_1.setBounds(440, 765, 149, 40);
+		frame.getContentPane().add(btnData_1_1_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1_1_1_1 = new JLabel("Para CSV");
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setForeground(new Color(255, 250, 240));
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setBounds(461, 706, 102, 49);
+		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_1_1_1_1);
 		
 		//--------------------------------------------------------//
 		
