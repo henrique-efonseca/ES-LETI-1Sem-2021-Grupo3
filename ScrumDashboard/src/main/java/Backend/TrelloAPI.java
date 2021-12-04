@@ -38,14 +38,6 @@ public class TrelloAPI
     private List<Card> cards;
     
     
-    
-    
-    
-    
-    
-    
-    
-    
     public List<JPanel> pieChart(List<Tabela> tabelas, int n, String info){
     	List<JPanel> charts = new ArrayList<>();
     	int x=0;
@@ -80,13 +72,6 @@ public class TrelloAPI
     }
     
     
-    
-    
-    
-    
-    
-    
-  
     public List<String> getSprints(){
     	List<String> sprints = new ArrayList<>();
     	for(TList l: lists) 
