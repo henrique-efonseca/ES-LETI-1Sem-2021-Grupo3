@@ -257,13 +257,23 @@ public class Trello {
 		//--------------------------------------------------------//
 
 		
-		JLabel lblNewLabel_1_1_2_1_1_2 = new JLabel("Data dos testes realizados");
+		JLabel lblNewLabel_1_1_2_1_1_2 = new JLabel("Data das funções implementadas");
 		lblNewLabel_1_1_2_1_1_2.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1_2_1_1_2.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_2_1_1_2.setBounds(681, 415, 299, 49);
+		lblNewLabel_1_1_2_1_1_2.setBounds(600, 416, 344, 49);
 		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_2);
 		
 		JButton btnData_1_2 = new JButton("Data");
+		btnData_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextArea textArea = new JTextArea(app.functionDate());
+				JScrollPane scrollPane = new JScrollPane(textArea);  
+				textArea.setLineWrap(true);  
+				textArea.setWrapStyleWord(true); 
+				scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+				JOptionPane.showMessageDialog(null, scrollPane, "Fim das funcionalidades testadas:" , JOptionPane.PLAIN_MESSAGE);
+			}
+		});
 		btnData_1_2.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		btnData_1_2.setBounds(785, 463, 149, 40);
 		frame.getContentPane().add(btnData_1_2);

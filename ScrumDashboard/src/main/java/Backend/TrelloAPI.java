@@ -195,7 +195,8 @@ public class TrelloAPI
     	t.addColumnName("Tempo total (min)",1);
     	t.createScrollPane();
   
-    	tabelas.add(t);        	
+    	tabelas.add(t);
+
     	return tabelas;
     }
     
@@ -208,9 +209,9 @@ public class TrelloAPI
    
     public void contarHoras(Card c, HashMap<String, Integer> realizados, HashMap<String, Integer> previstos ){
       	
-			List<Action> a = c.getActions();
-			for (Action a2 : a){
-				String temp = a2.getData().getText();
+			List<Action> actions = c.getActions();
+			for (Action a : actions){
+				String temp = a.getData().getText();
 				for(Member m : nomes){
 					if(temp!=null 
 						&& temp.contains("plus!") 
@@ -226,6 +227,15 @@ public class TrelloAPI
 		return;
     }
     
+    
+    public String functionDate(){
+    	String s="";
+    	for (Card c : cards) {
+    		List<Label> labels = c.getLabels();
+			for (Label l : labels) if(l.getName().equals("function")) s+=c.getName()+":\n" + c.getDesc() + "\n\r";		
+    	}
+    	return s;
+    }
     
     public String sprintsText(){
     	String s="";
@@ -270,10 +280,11 @@ public class TrelloAPI
     	String s="";
     	
     	for (TList l : lists) 
-    		if(l.getName().contains("Sprint"))
-    			for (Card c : cards) 
-    				if(c.getIdList().equals(l.getId())) s += c.getName()+ ":\n INICIO: " + c.getDateLastActivity().toString() +"\n FIM: " + c.getDue() + "\n\r";
-    			
+    		if(l.getName().contains("Sprint Planning"))
+    			for (Card c : cards) {
+    				String[] data = c.getDesc().split("___",3);
+    				if(c.getIdList().equals(l.getId())) s += c.getName()+ ":\n"+ data[1] + "\n\r";
+    			}
     	return s;
     }
     
