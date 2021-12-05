@@ -30,7 +30,7 @@ import Frontend.GUI;
 		private  GitHub github;
 		
 		
-		public void commits() throws IOException{
+		public String commits() throws IOException{
 			
 			HashMap<String, String> commit_map = new HashMap<String, String>();
 			Set<GHUser> names = repository.getCollaborators();
@@ -56,7 +56,7 @@ import Frontend.GUI;
 				}
 				for(GHUser m : names) s+=commit_map.get(m.getName())+"\n\r";
 				
-			System.out.println(s);
+			return s;
 		} 
 
 		public void getActiveBranch() throws IOException{
@@ -71,6 +71,10 @@ import Frontend.GUI;
 			return repository.getReadme().getContent();
 		}
 		
+		public String getRepoName() throws IOException{
+			return repository.getName();
+		}
+		
 		public void setUp(String token, String repo) throws IOException{
 			github = new GitHubBuilder().withOAuthToken(token).build();
 			repository =  github.getRepository(repo);
@@ -81,8 +85,6 @@ import Frontend.GUI;
 			GitHubAPI api= new GitHubAPI();
 			api.setUp("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","henrique-efonseca/ES-LETI-1Sem-2021-Grupo3");
 
-		//	Set<String> names = repository.getCollaboratorNames();
-			//for(String s : names) System.out.println(s);
 			System.out.println(api.getREADME());
 			api.commits();
 			

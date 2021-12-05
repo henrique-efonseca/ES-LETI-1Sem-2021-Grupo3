@@ -53,8 +53,8 @@ public class Info extends JFrame {
 				trello.setVisible(true);
 			}
 		});
-		btnNewButton.setForeground(Color.DARK_GRAY);
-		btnNewButton.setBackground(new Color(255, 255, 240));
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setFont(new Font("Arial Black", Font.BOLD, 25));
 		btnNewButton.setBounds(0, 0, 329, 397);
 		contentPane.add(btnNewButton);
@@ -67,9 +67,9 @@ public class Info extends JFrame {
 				git.setVisible(true);
 			}
 		});
-		btnGithub.setForeground(Color.WHITE);
+		btnGithub.setForeground(Color.DARK_GRAY);
 		btnGithub.setFont(new Font("Arial Black", Font.BOLD, 25));
-		btnGithub.setBackground(Color.DARK_GRAY);
+		btnGithub.setBackground(new Color(250, 240, 230));
 		btnGithub.setBounds(325, 0, 319, 397);
 		contentPane.add(btnGithub);
 	}
