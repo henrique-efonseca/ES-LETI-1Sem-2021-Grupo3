@@ -15,15 +15,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Backend.GitHubAPI;
+
 public class GithubLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private GitHubAPI githubApi;
 	private Github git;
 	private Info info;
 	private JTextField textField_2;
 	private String githubToken= "token";
+
   
 
 	/**
@@ -49,39 +53,39 @@ public class GithubLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 612, 411);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(250, 235, 215));
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(143, 145, 317, 25);
-		textField_1.setColumns(10);
-		textField_1.setBackground(SystemColor.menu);
-		contentPane.add(textField_1);
+		final JTextField tokenLoginField = new JTextField();
+		tokenLoginField.setBounds(143, 145, 317, 25);
+		tokenLoginField.setColumns(10);
+		tokenLoginField.setBackground(SystemColor.menu);
+		contentPane.add(tokenLoginField);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(143, 215, 317, 25);
-		textField_2.setColumns(10);
-		textField_2.setBackground(SystemColor.menu);
-		contentPane.add(textField_2);
+		final JTextField repositoryNameField = new JTextField();
+		repositoryNameField.setBounds(143, 215, 317, 25);
+		repositoryNameField.setColumns(10);
+		repositoryNameField.setBackground(SystemColor.menu);
+		contentPane.add(repositoryNameField);
 		
 		JLabel lblNewLabel_1 = new JLabel("LOGIN");
 		lblNewLabel_1.setBounds(245, 31, 138, 49);
 		lblNewLabel_1.setFont(new Font("Bahnschrift", Font.BOLD, 35));
-		lblNewLabel_1.setForeground(new Color(25, 25, 112));
+		lblNewLabel_1.setForeground(SystemColor.scrollbar);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblAccessToken = new JLabel("Access Token");
 		lblAccessToken.setBounds(143, 104, 159, 43);
-		lblAccessToken.setForeground(Color.DARK_GRAY);
+		lblAccessToken.setForeground(SystemColor.scrollbar);
 		lblAccessToken.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblAccessToken.setBackground(SystemColor.menu);
 		contentPane.add(lblAccessToken);
 		
 		JLabel lblBoardId = new JLabel("Repository Name");
 		lblBoardId.setBounds(143, 181, 240, 34);
-		lblBoardId.setForeground(Color.DARK_GRAY);
+		lblBoardId.setForeground(SystemColor.scrollbar);
 		lblBoardId.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblBoardId.setBackground(SystemColor.menu);
 		contentPane.add(lblBoardId);
@@ -91,8 +95,8 @@ public class GithubLogin extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-			    git = new Github();
-				//trello.iniciar(textField.getText(), textField_1.getText(), textField_2.getText());
+			    git = new Github(tokenLoginField.getText(), repositoryNameField.getText());
+			    //trello.iniciar(textField.getText(), textField_1.getText(), textField_2.getText());
 			    //git.iniciar(trelloKey,trelloAccessToken,boardID);
 				git.getFrame().setVisible(true);
 			}
