@@ -59,32 +59,32 @@ public class GithubLogin extends JFrame {
 		contentPane.setLayout(null);
 		
 		final JTextField tokenLoginField = new JTextField();
-		tokenLoginField.setBounds(143, 145, 317, 25);
+		tokenLoginField.setBounds(143, 115, 317, 25);
 		tokenLoginField.setColumns(10);
 		tokenLoginField.setBackground(SystemColor.menu);
 		contentPane.add(tokenLoginField);
 		
 		final JTextField repositoryNameField = new JTextField();
-		repositoryNameField.setBounds(143, 215, 317, 25);
+		repositoryNameField.setBounds(143, 196, 317, 25);
 		repositoryNameField.setColumns(10);
 		repositoryNameField.setBackground(SystemColor.menu);
 		contentPane.add(repositoryNameField);
 		
 		JLabel lblNewLabel_1 = new JLabel("LOGIN");
-		lblNewLabel_1.setBounds(245, 31, 138, 49);
+		lblNewLabel_1.setBounds(245, 31, 106, 49);
 		lblNewLabel_1.setFont(new Font("Bahnschrift", Font.BOLD, 35));
 		lblNewLabel_1.setForeground(SystemColor.scrollbar);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblAccessToken = new JLabel("Access Token");
-		lblAccessToken.setBounds(143, 104, 159, 43);
+		lblAccessToken.setBounds(143, 76, 159, 43);
 		lblAccessToken.setForeground(SystemColor.scrollbar);
 		lblAccessToken.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblAccessToken.setBackground(SystemColor.menu);
 		contentPane.add(lblAccessToken);
 		
 		JLabel lblBoardId = new JLabel("Repository Name");
-		lblBoardId.setBounds(143, 181, 240, 34);
+		lblBoardId.setBounds(143, 164, 240, 34);
 		lblBoardId.setForeground(SystemColor.scrollbar);
 		lblBoardId.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblBoardId.setBackground(SystemColor.menu);

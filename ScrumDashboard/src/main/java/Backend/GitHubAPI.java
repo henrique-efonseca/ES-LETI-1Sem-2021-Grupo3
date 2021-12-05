@@ -37,6 +37,10 @@ public class GitHubAPI {
 		}
 	}
 	
+	
+//	public void convertToTxt() {
+//		Document document = new Document("test.md");
+//	}
 	public String getReadMe() throws IOException {
 		String readMe = repository.getReadme().getContent();
 		return readMe;
