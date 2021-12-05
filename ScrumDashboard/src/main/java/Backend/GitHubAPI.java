@@ -3,62 +3,89 @@ package Backend;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.kohsuke.github.GHBranch;
 import org.kohsuke.github.GHCommit;
+import org.kohsuke.github.GHCommit.ShortInfo;
 import org.kohsuke.github.GHCommitComment;
 import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.julienvey.trello.domain.Member;
 
 import Frontend.GUI;
 
 
 
 	public class GitHubAPI {
-		private static final String authorization = "Bearer: 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";
-		private static final String baseUrl = "https://api.github.com/repos/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
-		private static final ObjectMapper objectMapper = new ObjectMapper();
-		private static GHRepository repository; 
-	
-		private static GitHub github;
+		private GHRepository repository; 
+		private  GitHub github;
 		
 		
-		public static void teste() throws IOException{
-			Set<String> names = repository.getCollaboratorNames();
+		public void commits() throws IOException{
+			
+			HashMap<String, String> commit_map = new HashMap<String, String>();
+			Set<GHUser> names = repository.getCollaborators();
 			PagedIterable<GHCommit> commits = repository.listCommits();
-			for(String name : names) {		
-				String s=name+"\n";
+			String s = "COMMITS \n\r";
+			
+			for(GHUser m : names) commit_map.put(m.getName(),m.getName()+"\n");
+	    	
+		
 				for(GHCommit commit : commits){
-					System.out.println(commit.getCommitter());
-					if(commit.getAuthor().equals(s)) {
-						System.out.println(commit.getCommitDate().toString());
-						PagedIterable<GHCommitComment> comments=commit.listComments();
-						for(GHCommitComment comment : comments) System.out.println(comment.getBody());
+					if(commit.getCommitter().getName() != null && !commit.getCommitter().getName().equals("GitHub Web Flow")){
+							String c= "";
+							c+=commit.getCommitDate().toString()+"\n";
+							c+=commit.getCommitShortInfo().getMessage()+"\n";
+						
+							PagedIterable<GHBranch> branch= commit.listBranchesWhereHead();
+							for(GHBranch b : branch){
+							c+=b.getName()+"\n";
+							} 
+							commit_map.put(commit.getCommitter().getName(), commit_map.get(commit.getCommitter().getName())+c+"\n");
+						
 					}
 				}
-			}
-			
+				for(GHUser m : names) s+=commit_map.get(m.getName())+"\n\r";
+				
+			System.out.println(s);
 		} 
 
+		public void getActiveBranch() throws IOException{
+			Map<String, GHBranch> map=	repository.getBranches();
+			for (Entry<String, GHBranch> entry : map.entrySet()) {
+				System.out.println("Key : " + entry.getKey());
+			}
+		}	
+		
+		
+		public String getREADME() throws IOException{
+			return repository.getReadme().getContent();
+		}
+		
+		public void setUp(String token, String repo) throws IOException{
+			github = new GitHubBuilder().withOAuthToken(token).build();
+			repository =  github.getRepository(repo);
+		}
+		
 		public static void main(String[] args) throws IOException {
 		
-			github = new GitHubBuilder().withOAuthToken("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").build();
-			repository =  github.getRepository("henrique-efonseca/ES-LETI-1Sem-2021-Grupo3");
-			//github = new GitHubBuilder().withOAuthToken("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").build();
-			//GHRepository repository =  github.getRepository("pauletasm/TestePAULETA");
-			System.out.println(repository.getFullName());			
-			System.out.println(repository.getReadme().getEncodedContent());
-			Set<String> names = repository.getCollaboratorNames();
-			for(String s : names) System.out.println(s);
+			GitHubAPI api= new GitHubAPI();
+			api.setUp("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","henrique-efonseca/ES-LETI-1Sem-2021-Grupo3");
+
+		//	Set<String> names = repository.getCollaboratorNames();
+			//for(String s : names) System.out.println(s);
+			System.out.println(api.getREADME());
+			api.commits();
 			
-			String masterBranch = repository.getMasterBranch();
-			GHBranch master = repository.getBranch(masterBranch);
 	    	
 	    }
 	}

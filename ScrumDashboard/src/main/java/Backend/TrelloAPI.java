@@ -43,15 +43,7 @@ public class TrelloAPI
     private List<Tabela> custo = new ArrayList<>();
     
     
-    public void toCSV() throws IOException{
-    	if(tempo.isEmpty()) tempo=tempoSprints();
-    	
-        try (FileWriter csv = new FileWriter(new File("test.csv"))) {
-				for(Tabela tabela: tempo){
-					csv.write(tabela.getTitle()+"\n");
-					int c = 0;
-					for(Member m : nomes){
-							int realizadas = (int) tabela.getObject(c,1);
+    /*int realizadas = (int) tabela.getObject(c,1);
 							if(tabela.getTitle().equals("Total")){
 								csv.write(tabela.getObject(c,0)+","+realizadas+"\n");
 							}
@@ -59,7 +51,18 @@ public class TrelloAPI
 								int previstas = (int) tabela.getObject(c,2);
 								csv.write(tabela.getObject(c,0)+","+realizadas+","+previstas+"\n");
 							}					
-						c++;
+						c++;*/
+    
+    public void toCSV() throws IOException{
+    	if(tempo.isEmpty()) tempo=tempoSprints();
+    	
+        try (FileWriter csv = new FileWriter(new File("test.csv"))) {
+				for(Tabela tabela: tempo){
+					//csv.write(tabela.getTitle()+"\n");
+					for(int i = 0; i<nomes.size(); i++){
+							for(int j = 0; j<tabela.getCol();j++) csv.write(tabela.getObject(i,j)+",");
+							
+						csv.write(tabela.getTitle()+"\n");
 					}
 				}				
         }
