@@ -20,6 +20,7 @@ public class TrelloLogin extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private Trello trello;
+	private Info mainScreen;
 	private JTextField textField_2;
 	private String trelloKey= "a04256995af78e5ea7bff424d82cf477";
 			private String trelloAccessToken = "47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
@@ -98,7 +99,7 @@ public class TrelloLogin extends JFrame {
 		contentPane.add(lblBoardId);
 		
 		JButton btnNewButton = new JButton("NEXT");
-		btnNewButton.setBounds(248, 306, 100, 25);
+		btnNewButton.setBounds(360, 305, 100, 25);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -111,6 +112,19 @@ public class TrelloLogin extends JFrame {
 		btnNewButton.setFont(new Font("HP Simplified", Font.PLAIN, 14));
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		contentPane.add(btnNewButton);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			    mainScreen = new Info();
+			    mainScreen.setVisible(true);
+			}
+		});
+		btnCancel.setFont(new Font("HP Simplified", Font.PLAIN, 14));
+		btnCancel.setBackground(Color.WHITE);
+		btnCancel.setBounds(143, 305, 100, 25);
+		contentPane.add(btnCancel);
 		
 	}
 }

@@ -22,6 +22,7 @@ public class GithubLogin extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private Github git;
+	private Info mainScreen;
 	private JTextField textField_2;
 	private String token ="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";
 	private String repo= "henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
@@ -56,13 +57,13 @@ public class GithubLogin extends JFrame {
 		contentPane.setLayout(null);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(143, 168, 317, 25);
+		textField_1.setBounds(143, 122, 317, 25);
 		textField_1.setColumns(10);
 		textField_1.setBackground(SystemColor.menu);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(143, 235, 317, 25);
+		textField_2.setBounds(143, 200, 317, 25);
 		textField_2.setColumns(10);
 		textField_2.setBackground(SystemColor.menu);
 		contentPane.add(textField_2);
@@ -74,21 +75,21 @@ public class GithubLogin extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblAccessToken = new JLabel("Access Token");
-		lblAccessToken.setBounds(143, 129, 159, 43);
+		lblAccessToken.setBounds(143, 85, 159, 43);
 		lblAccessToken.setForeground(Color.DARK_GRAY);
 		lblAccessToken.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblAccessToken.setBackground(SystemColor.menu);
 		contentPane.add(lblAccessToken);
 		
 		JLabel lblBoardId = new JLabel("Repository Name");
-		lblBoardId.setBounds(143, 203, 240, 34);
+		lblBoardId.setBounds(143, 166, 240, 34);
 		lblBoardId.setForeground(Color.DARK_GRAY);
 		lblBoardId.setFont(new Font("DialogInput", Font.BOLD, 20));
 		lblBoardId.setBackground(SystemColor.menu);
 		contentPane.add(lblBoardId);
 		
 		JButton btnNewButton = new JButton("NEXT");
-		btnNewButton.setBounds(248, 306, 100, 25);
+		btnNewButton.setBounds(360, 284, 100, 25);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -106,6 +107,19 @@ public class GithubLogin extends JFrame {
 		btnNewButton.setFont(new Font("HP Simplified", Font.PLAIN, 14));
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		contentPane.add(btnNewButton);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			    mainScreen = new Info();
+			    mainScreen.setVisible(true);
+			}
+		});
+		btnCancel.setFont(new Font("HP Simplified", Font.PLAIN, 14));
+		btnCancel.setBackground(Color.WHITE);
+		btnCancel.setBounds(143, 284, 100, 25);
+		contentPane.add(btnCancel);
 		
 	}
 
