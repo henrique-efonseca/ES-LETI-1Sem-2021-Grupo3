@@ -20,16 +20,10 @@ import Backend.GitHubAPI;
 public class GithubLogin extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 	private GitHubAPI githubApi;
 	private Github git;
 	private Info info;
-	private JTextField textField_2;
-	private String githubToken= "token";
-
-  
-
+	
 	/**
 	 * Launch the application.
 	 */
