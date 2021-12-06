@@ -12,6 +12,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -75,7 +76,7 @@ public class Trello {
 		//app.teste();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 980, 877);
+		frame.setBounds(100, 100, 980, 958);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//--------------------------------------------------------//
@@ -165,7 +166,7 @@ public class Trello {
 		JLabel lblNewLabel_1_1_1 = new JLabel("Listas na board do Trello");
 		lblNewLabel_1_1_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_1.setBounds(700, 186, 244, 49);
+		lblNewLabel_1_1_1.setBounds(699, 157, 244, 49);
 		frame.getContentPane().add(lblNewLabel_1_1_1);
 		
 		JButton btnNewButton_2 = new JButton("Listas");
@@ -175,7 +176,7 @@ public class Trello {
 			}
 		});
 		btnNewButton_2.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
-		btnNewButton_2.setBounds(785, 242, 149, 40);
+		btnNewButton_2.setBounds(784, 213, 149, 40);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		//--------------------------------------------------------//
@@ -200,7 +201,7 @@ public class Trello {
 		JLabel lblNewLabel_1_1_2_1 = new JLabel("Data início dos Sprints");
 		lblNewLabel_1_1_2_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1_2_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_2_1.setBounds(716, 306, 223, 49);
+		lblNewLabel_1_1_2_1.setBounds(715, 277, 223, 49);
 		frame.getContentPane().add(lblNewLabel_1_1_2_1);
 		
 		JButton btnData_1 = new JButton("Data");
@@ -210,7 +211,7 @@ public class Trello {
 			}
 		});
 		btnData_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
-		btnData_1.setBounds(785, 354, 149, 40);
+		btnData_1.setBounds(784, 325, 149, 40);
 		frame.getContentPane().add(btnData_1);
 		
 		//--------------------------------------------------------//
@@ -257,15 +258,25 @@ public class Trello {
 		//--------------------------------------------------------//
 
 		
-		JLabel lblNewLabel_1_1_2_1_1_2 = new JLabel("Data dos testes realizados");
+		JLabel lblNewLabel_1_1_2_1_1_2 = new JLabel("Data das funções implementadas");
 		lblNewLabel_1_1_2_1_1_2.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1_2_1_1_2.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_2_1_1_2.setBounds(681, 415, 299, 49);
+		lblNewLabel_1_1_2_1_1_2.setBounds(599, 387, 344, 49);
 		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_2);
 		
 		JButton btnData_1_2 = new JButton("Data");
+		btnData_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextArea textArea = new JTextArea(app.functionDate());
+				JScrollPane scrollPane = new JScrollPane(textArea);  
+				textArea.setLineWrap(true);  
+				textArea.setWrapStyleWord(true); 
+				scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+				JOptionPane.showMessageDialog(null, scrollPane, "Fim das funcionalidades testadas:" , JOptionPane.PLAIN_MESSAGE);
+			}
+		});
 		btnData_1_2.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
-		btnData_1_2.setBounds(785, 463, 149, 40);
+		btnData_1_2.setBounds(784, 434, 149, 40);
 		frame.getContentPane().add(btnData_1_2);
 		
 		//--------------------------------------------------------//
@@ -274,18 +285,19 @@ public class Trello {
 		JLabel lblNewLabel_1_1_2_1_1_1_1 = new JLabel("Horas de trabalho");
 		lblNewLabel_1_1_2_1_1_1_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1_2_1_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_2_1_1_1_1.setBounds(758, 531, 176, 49);
+		lblNewLabel_1_1_2_1_1_1_1.setBounds(757, 502, 176, 49);
 		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_1_1);
 		
 		JButton btnData_1_1_1_1 = new JButton("Pie Chart");
 		btnData_1_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Tabela> tabelas = app.tempoSprints();
+				app.pieChart(tabelas,2,"TOTAL DE TEMPO (MIN)");
 				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);	
 			}
 		});
 		btnData_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
-		btnData_1_1_1_1.setBounds(785, 579, 149, 40);
+		btnData_1_1_1_1.setBounds(784, 550, 149, 40);
 		frame.getContentPane().add(btnData_1_1_1_1);
 		
 		//--------------------------------------------------------//
@@ -301,12 +313,68 @@ public class Trello {
 		btnData_1_1_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Tabela> tabelas = app.recursosHumanos();
+				app.pieChart(tabelas,1,"CUSTO RECURSOS HUMANOS (€)");
 				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);	
 			}
 		});
 		btnData_1_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
 		btnData_1_1_1_1_1.setBounds(45, 682, 149, 40);
 		frame.getContentPane().add(btnData_1_1_1_1_1);
+		
+		JButton btnData_1_1_1_1_1_1 = new JButton("CSV");
+		btnData_1_1_1_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					app.toCSV();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnData_1_1_1_1_1_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+		btnData_1_1_1_1_1_1.setBounds(784, 760, 149, 40);
+		frame.getContentPane().add(btnData_1_1_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1_1_1_1 = new JLabel("Para CSV");
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setForeground(new Color(255, 250, 240));
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
+		lblNewLabel_1_1_2_1_1_1_1_1_1.setBounds(837, 715, 102, 49);
+		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1_1_1_2 = new JLabel("Atividades que originaram artefactos");
+		lblNewLabel_1_1_2_1_1_1_1_1_2.setForeground(new Color(255, 250, 240));
+		lblNewLabel_1_1_2_1_1_1_1_1_2.setFont(new Font("Century Gothic", Font.BOLD, 20));
+		lblNewLabel_1_1_2_1_1_1_1_1_2.setBounds(568, 607, 371, 49);
+		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_1_1_1_2);
+		
+		JButton btnData_1_1_1_1_2 = new JButton("Tabela");
+		btnData_1_1_1_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Tabela> tabelas = app.artifact();
+				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		btnData_1_1_1_1_2.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+		btnData_1_1_1_1_2.setBounds(784, 653, 149, 40);
+		frame.getContentPane().add(btnData_1_1_1_1_2);
+		
+		JLabel lblNewLabel_1_1_2_1_1_1_1_1_3 = new JLabel("Atividades que não originaram artefactos");
+		lblNewLabel_1_1_2_1_1_1_1_1_3.setForeground(new Color(255, 250, 240));
+		lblNewLabel_1_1_2_1_1_1_1_1_3.setFont(new Font("Century Gothic", Font.BOLD, 20));
+		lblNewLabel_1_1_2_1_1_1_1_1_3.setBounds(45, 732, 433, 49);
+		frame.getContentPane().add(lblNewLabel_1_1_2_1_1_1_1_1_3);
+		
+		JButton btnData_1_1_1_1_2_1 = new JButton("Tabela");
+		btnData_1_1_1_1_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Tabela> tabelas = app.noArtifact();
+				for(Tabela t : tabelas) JOptionPane.showMessageDialog(null, t.getTabela(), t.getTitle(), JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		btnData_1_1_1_1_2_1.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+		btnData_1_1_1_1_2_1.setBounds(45, 779, 149, 40);
+		frame.getContentPane().add(btnData_1_1_1_1_2_1);
 		
 		//--------------------------------------------------------//
 		

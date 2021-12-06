@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,8 @@ public class GithubLogin extends JFrame {
 	private JTextField textField_1;
 	private Github git;
 	private JTextField textField_2;
-	private String githubToken= "token";
+	private String token ="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";
+	private String repo= "henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
   
 
 	/**
@@ -68,7 +70,7 @@ public class GithubLogin extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("LOGIN");
 		lblNewLabel_1.setBounds(245, 31, 138, 49);
 		lblNewLabel_1.setFont(new Font("Bahnschrift", Font.BOLD, 35));
-		lblNewLabel_1.setForeground(new Color(25, 25, 112));
+		lblNewLabel_1.setForeground(Color.DARK_GRAY);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblAccessToken = new JLabel("Access Token");
@@ -91,8 +93,13 @@ public class GithubLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			    git = new Github();
-				//trello.iniciar(textField.getText(), textField_1.getText(), textField_2.getText());
-			    //git.iniciar(trelloKey,trelloAccessToken,boardID);
+			    try {
+			    	
+					git.iniciar(token,repo);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				git.getFrame().setVisible(true);
 			}
 		});
