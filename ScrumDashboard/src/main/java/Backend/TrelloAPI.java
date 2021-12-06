@@ -29,6 +29,12 @@ import com.julienvey.trello.impl.http.ApacheHttpClient;
 
 import Frontend.Tabela;
 
+/**
+ *Trello API 
+ *@author Ricardo Paulo
+ *@version 1.0
+ */
+
 public class TrelloAPI 
 {
 	private String trelloKey;
@@ -42,7 +48,10 @@ public class TrelloAPI
     private List<Tabela> tempo = new ArrayList<>();
     private List<Tabela> custo = new ArrayList<>();
     
-   
+   /**
+    * Exports each team element information to a .csv file 
+    * @throws IOException
+    */
     
     public void toCSV() throws IOException{
     		
@@ -238,7 +247,11 @@ public class TrelloAPI
     	return charts;
     }
     
-    
+    /**
+     * Returns a List<String> with every sprint
+     * @return
+     * a List<String> with every sprint
+     */
     public List<String> getSprints(){
     	List<String> sprints = new ArrayList<>();
     	for(TList l: lists) 
@@ -305,6 +318,7 @@ public class TrelloAPI
     	return custo;
     }
    
+    
     public List<Tabela> tempoSprints(){
     	List<String> sprints = getSprints(); 
     	HashMap<String, Integer> realizados = new HashMap<String, Integer>();
@@ -366,6 +380,11 @@ public class TrelloAPI
     	return tempo;
     }
     
+    /**
+     * Resets a HashMap<String, Integer>
+     * @param map
+     * the map that will be reset 
+     */
     public void resetMap(HashMap<String, Integer> map){
     	for(Member m: nomes){
     		map.put(m.getUsername(),0);
@@ -393,7 +412,11 @@ public class TrelloAPI
 		return;
     }
     
-    
+    /**
+     * returns the start and end date for each created function as a String
+     * @return
+     * the start and end date for each created function as a String
+     */
     public String functionDate(){
     	String s="";
     	for (Card c : cards) {
@@ -403,6 +426,11 @@ public class TrelloAPI
     	return s;
     }
   
+    /**
+     * Returns, for each sprint, the result conclusions text
+     * @return
+     * a String with every Sprint text
+     */
     //MELHORAR COM O GETLIST PELO ID
     public String sprintsText(){
     	String s="";
@@ -417,6 +445,12 @@ public class TrelloAPI
     	return s;
     }
     
+    
+    /**
+     * Returns a String with every Product Backlog item for each Sprint
+     * @return
+     * every Product Backlog item for each Sprint as a String
+     */
     public String productBacklog(){
     	String id="";
     	String s="";
@@ -442,7 +476,11 @@ public class TrelloAPI
     	}
     	return s;
     }
-    
+    /**
+     * Returns the start and end dates for every sprints as a String
+     * @return
+     * start and ending dates for every sprints as a String
+     */
     public String sprintDates(){
     	String s="";
     	
@@ -455,16 +493,31 @@ public class TrelloAPI
     	return s;
     }
     
-    
+    /**
+     * returns the date project has started as a String
+     * @return
+     * project start date as a String
+     */
     public String projectDate(){
     	for(Card c : cards) if(c.getName().equals("Data de inicio do projeto")) return c.getDue().toString();
     	return null;
     }	
     
-    
+    /**
+     * Returns the project ID as a String
+     * @return
+     * Project ID as a String
+     */
     public String projectID(){
     	 return board.getName()+ " - id: " +board.getId();
     }
+    /**
+     * Creates a new Card in an existing List
+     * @param s
+     * List name where the card will be created
+     * @param card_name
+     * New card name
+     */
     
     public void createBoard(String s, String card_name){
 	    for (TList l : lists) {
@@ -476,6 +529,11 @@ public class TrelloAPI
 	    	}
 	    }
     }
+    /**
+     * Returns A string with all Lists at this Trello project
+     * @return
+     * All Lists in the Trello project as a String
+     */
     
     public String lists(){ 	
     	 String string = "";
@@ -485,6 +543,11 @@ public class TrelloAPI
          return string;
     }
     
+    /**
+     * Returns a String with all project members
+     * @return
+     * All project members as a String
+     */
 	public String members(){
 		String string = "";
 	    for (Member names : nomes) {
@@ -494,6 +557,15 @@ public class TrelloAPI
 	    return string;
 	}
 	
+	/**
+	 * Connects to a Trello project
+	 * @param s1
+	 * Trello key
+	 * @param s2
+	 * Trello Access Token
+	 * @param s3
+	 * Trello board ID
+	 */
 	public void setUp(String s1, String s2, String s3){
     	trelloKey = s1;
     	trelloAccessToken = s2;

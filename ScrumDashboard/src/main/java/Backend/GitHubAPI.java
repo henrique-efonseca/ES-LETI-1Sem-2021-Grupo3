@@ -20,13 +20,25 @@ import org.kohsuke.github.PagedIterable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.julienvey.trello.domain.Member;
-
+/**
+ * GitHub API
+ * 
+ * @author Bernardo Bento
+ * @author Ricardo Paulo
+ * @version 1.0 
+ * 
+ */
 
 	public class GitHubAPI {
 		private GHRepository repository; 
 		private  GitHub github;
 		
-		
+		/**
+		 * Return all commits made by person and in chronological order as a String
+		 * @return
+		 * All commits as a String
+		 * @throws IOException
+		 */
 		public String commits() throws IOException{
 			
 			HashMap<String, String> commit_map = new HashMap<String, String>();
@@ -56,6 +68,10 @@ import com.julienvey.trello.domain.Member;
 			return s;
 		} 
 
+		/**
+		 * Prints all active Branches
+		 * @throws IOException
+		 */
 		public void getActiveBranch() throws IOException{
 			Map<String, GHBranch> map=	repository.getBranches();
 			for (Entry<String, GHBranch> entry : map.entrySet()) {
@@ -63,20 +79,47 @@ import com.julienvey.trello.domain.Member;
 			}
 		}	
 		
+		/**
+		 * returns repository README.md file from GitHub as a String
+		 * 
+		 * @return 
+		 * README.md file as a String
+		 * @throws IOException
+		 */
 		
 		public String getREADME() throws IOException{
 			return repository.getReadme().getContent();
 		}
 		
+		/** 
+		 * returns the Repository name as a String
+		 * @return
+		 * Repository name as a String
+		 * @throws IOException
+		 */
 		public String getRepoName() throws IOException{
 			return repository.getName();
 		}
 		
+		/**
+		 * Connects with a GitHub repository
+		 * 
+		 * @param token
+		 * GitHub personal Token
+		 * @param repo
+		 * GitHub repository name 
+		 * @throws IOException
+		 */
 		public void setUp(String token, String repo) throws IOException{
 			github = new GitHubBuilder().withOAuthToken(token).build();
 			repository =  github.getRepository(repo);
 		}
 		
+		/**
+		 * Main Function
+		 * @param args
+		 * @throws IOException
+		 */
 		public static void main(String[] args) throws IOException {
 		
 			GitHubAPI api= new GitHubAPI();
