@@ -51,7 +51,9 @@ public class TrelloAPI
     	artifact();
     	noArtifact();
     	
-        try (FileWriter csv = new FileWriter(new File("test.csv"))) {
+    		File file = new File("Data.csv"); 
+    		file.createNewFile();
+        	try (FileWriter csv = new FileWriter(file)) {
 				for(Tabela tabela: tempo){
 					//csv.write(tabela.getTitle()+"\n");
 					for(int i = 0; i<nomes.size(); i++){
@@ -60,8 +62,9 @@ public class TrelloAPI
 						csv.write(tabela.getTitle()+"\n");
 					}
 					csv.write("\n");
-				}				
-        }
+				}
+			}				
+        
 	}
     
     

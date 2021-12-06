@@ -21,9 +21,6 @@ import org.kohsuke.github.PagedIterable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.julienvey.trello.domain.Member;
 
-import Frontend.GUI;
-
-
 
 	public class GitHubAPI {
 		private GHRepository repository; 
