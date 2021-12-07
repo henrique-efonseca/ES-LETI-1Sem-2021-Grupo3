@@ -1,6 +1,7 @@
 package Frontend;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -14,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import org.kohsuke.github.GHTag;
 
@@ -143,7 +146,12 @@ public class Github {
 		commit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					JOptionPane.showMessageDialog(null, app.commits(), "Commits:", JOptionPane.PLAIN_MESSAGE);
+					JTextArea textArea = new JTextArea(app.commits());
+					JScrollPane scrollPane = new JScrollPane(textArea);  
+					textArea.setLineWrap(true);  
+					textArea.setWrapStyleWord(true); 
+					scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+					JOptionPane.showMessageDialog(null, scrollPane, "Commits:", JOptionPane.PLAIN_MESSAGE);
 				} catch (HeadlessException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -24,7 +24,9 @@ public class GithubLogin extends JFrame {
 	private Github git;
 	private GUI mainScreen;
 	private JTextField textField_2;
-	private String token ="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";
+
+	private String token ="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";
+
 	private String repo= "henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
   
 
@@ -94,8 +96,7 @@ public class GithubLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			    git = new Github();
-			    try {
-			    	
+			    try {		    	
 					git.iniciar(token,repo);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
