@@ -121,17 +121,9 @@ import com.julienvey.trello.domain.Member;
 		
 		
 		public HashMap<GHTag, String> getTags() throws IOException {
-			HashMap<GHTag, String> tags_dates = new HashMap<GHTag, String>();
-			
-			PagedIterable<GHTag> tags = repository.listTags();
-			
-			for (GHTag tag : tags) {
-				
-				
-				tags_dates.put(tag, tag.getCommit().getCommitDate().toString());
-				}
-			
-			
+			HashMap<GHTag, String> tags_dates = new HashMap<GHTag, String>();		
+			PagedIterable<GHTag> tags = repository.listTags();		
+			for (GHTag tag : tags) tags_dates.put(tag, tag.getCommit().getCommitDate().toString());
 			return tags_dates;
 			
 		
