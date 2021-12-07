@@ -34,6 +34,7 @@ import Frontend.Tabela;
 /**
  *Trello API 
  *@author Ricardo Paulo
+ *@author Henrique Fonseca
  *@version 1.0
  */
 
