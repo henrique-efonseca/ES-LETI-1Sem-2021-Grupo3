@@ -8,11 +8,14 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import org.kohsuke.github.GHTag;
 
 import Backend.GitHubAPI;
 import Backend.TrelloAPI;
@@ -147,23 +150,65 @@ public class Github {
 				}		
 			}
 		});
+		
 		frame.getContentPane().add(commit);
 		
 		//--------------------------------------------------------//
 
 		
 		JButton btnTag = new JButton("Tag");
-		btnTag.setForeground(new Color(240, 248, 255));
-		btnTag.setBackground(Color.DARK_GRAY);
-		btnTag.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
-		btnTag.setBounds(132, 405, 143, 43);
-		frame.getContentPane().add(btnTag);
+        btnTag.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	HashMap<GHTag, String> tags_dates;
+				try {
+					tags_dates = app.getTags();
+					for (GHTag tag : tags_dates.keySet()) {
+						JOptionPane.showMessageDialog(null,"Tag: " + tag.getName() + "\n" + "Date: " + tags_dates.get(tag) , "Tag:", JOptionPane.PLAIN_MESSAGE);
+	    				
+	    			}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    			
+    			
+    			
+            }
+        });
+        btnTag.setForeground(new Color(240, 248, 255));
+        btnTag.setBackground(Color.DARK_GRAY);
+        btnTag.setFont(new Font("Bahnschrift", Font.PLAIN, 15));
+        btnTag.setBounds(132, 405, 143, 43);
+        frame.getContentPane().add(btnTag);
+
+        JLabel lblNewLabel_1_1_1 = new JLabel("Lista de todas as tags");
+        lblNewLabel_1_1_1.setForeground(Color.DARK_GRAY);
+        lblNewLabel_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        lblNewLabel_1_1_1.setBounds(100, 357, 217, 49);
+        frame.getContentPane().add(lblNewLabel_1_1_1);
+        }
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Lista de todas as tags");
-		lblNewLabel_1_1_1.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_1_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		lblNewLabel_1_1_1.setBounds(100, 357, 217, 49);
-		frame.getContentPane().add(lblNewLabel_1_1_1);
 		
-	}
+
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 * 
+	 * 
+	 * HashMap<GHTag, String> tags_dates = api.getTags();
+			
+			
+			for (GHTag tag : tags_dates.keySet()) {
+				System.out.println("Tag: " + tag.getName() );
+				System.out.println("Date: " + tags_dates.get(tag) );
+			}
+	 * 
+	 * */
+	 
+	
 }

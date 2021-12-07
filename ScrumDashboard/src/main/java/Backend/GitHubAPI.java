@@ -2,8 +2,10 @@ package Backend;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,6 +15,7 @@ import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHCommit.ShortInfo;
 import org.kohsuke.github.GHCommitComment;
 import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHTag;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
@@ -25,6 +28,7 @@ import com.julienvey.trello.domain.Member;
  * 
  * @author Bernardo Bento
  * @author Ricardo Paulo
+ * @author Henrique Fonseca
  * @version 1.0 
  * 
  */
@@ -115,19 +119,24 @@ import com.julienvey.trello.domain.Member;
 			repository =  github.getRepository(repo);
 		}
 		
-		/**
-		 * Main Function
-		 * @param args
-		 * @throws IOException
-		 */
-		public static void main(String[] args) throws IOException {
 		
-			GitHubAPI api= new GitHubAPI();
-			api.setUp("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","henrique-efonseca/ES-LETI-1Sem-2021-Grupo3");
-
-			System.out.println(api.getREADME());
-			api.commits();
+		public HashMap<GHTag, String> getTags() throws IOException {
+			HashMap<GHTag, String> tags_dates = new HashMap<GHTag, String>();
 			
-	    	
-	    }
+			PagedIterable<GHTag> tags = repository.listTags();
+			
+			for (GHTag tag : tags) {
+				
+				
+				tags_dates.put(tag, tag.getCommit().getCommitDate().toString());
+				}
+			
+			
+			return tags_dates;
+			
+		
+			
+		}
+		
+	
 	}

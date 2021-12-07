@@ -24,7 +24,7 @@ public class GithubLogin extends JFrame {
 	private Github git;
 	private Info mainScreen;
 	private JTextField textField_2;
-	private String token ="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";
+	private String token ="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";
 	private String repo= "henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
   
 
