@@ -45,13 +45,13 @@ public class TrelloTests {
 	@Test
 	public void testRecursosHumanos() {
 	
-		 assertNotNull(app.recursosHumanos());
+		 assertNotNull(app.humanResourcesCost());
 	}
 
 	@Test
 	public void testTempoSprints() {
 	
-		 assertNotNull(app.tempoSprints());
+		 assertNotNull(app.sprintTime());
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class TrelloTests {
 	@Test
 	public void testSprintDates() {
 
-		 assertNotNull(app.sprintDates());
+		 assertNotNull(app.getSprints());
 	}
 
 	@Test
@@ -85,15 +85,16 @@ public class TrelloTests {
 	}
 
 	@Test
-	public void testProjectID() {
-		
+	public void testProjectID() {	
 		 assertNotNull(app.projectID());
 	}
 
 	@Test
 	public void testMembers() {
-	
-		 assertNotNull(app.members());
+		assertNotNull(app.members());
+		String m = app.members();
+		assertTrue(m.contains("ricardonunosilvapaulo"));
+		
 	}
 
 
