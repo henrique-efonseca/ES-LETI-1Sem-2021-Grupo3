@@ -22,7 +22,7 @@ public class TrelloLogin extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private Trello trello;
-	private Info mainScreen;
+	private GUI mainScreen;
 	private JTextField textField_2;
 	private String trelloKey= "a04256995af78e5ea7bff424d82cf477";
 			private String trelloAccessToken = "47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
@@ -119,7 +119,7 @@ public class TrelloLogin extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-			    mainScreen = new Info();
+			    mainScreen = new GUI();
 			    mainScreen.setVisible(true);
 			}
 		});

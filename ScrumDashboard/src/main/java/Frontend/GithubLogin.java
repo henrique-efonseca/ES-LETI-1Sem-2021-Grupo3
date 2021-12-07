@@ -22,9 +22,11 @@ public class GithubLogin extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private Github git;
-	private Info mainScreen;
+	private GUI mainScreen;
 	private JTextField textField_2;
+
 	private String token ="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";
+
 	private String repo= "henrique-efonseca/ES-LETI-1Sem-2021-Grupo3";
   
 
@@ -111,7 +113,7 @@ public class GithubLogin extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-			    mainScreen = new Info();
+			    mainScreen = new GUI();
 			    mainScreen.setVisible(true);
 			}
 		});

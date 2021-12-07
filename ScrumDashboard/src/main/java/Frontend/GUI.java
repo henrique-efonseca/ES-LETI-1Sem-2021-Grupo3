@@ -13,7 +13,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Info extends JFrame {
+public class GUI extends JFrame {
 
 	private JPanel contentPane;
 	private TrelloLogin trello;
@@ -25,7 +25,7 @@ public class Info extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Info frame = new Info();
+					GUI frame = new GUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class Info extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Info() {
+	public GUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 658, 434);
 		contentPane = new JPanel();
