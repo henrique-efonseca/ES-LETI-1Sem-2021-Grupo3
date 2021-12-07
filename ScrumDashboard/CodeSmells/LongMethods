@@ -1,0 +1,80 @@
+Frontend.Trello	private void initialize() 	tglbtnNewToggleButton	B1	0/9
+Backend.TrelloAPI	public void totalTime(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Double>) 	total	B2	0/7
+Backend.TrelloAPI	public void totalTime(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Double>) 	total	B3	0/6
+Backend.TrelloAPI	public void totalTime(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Double>) 	total	B4	0/5
+Backend.TrelloAPI	public void totalTime(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Double>) 	total	B5	0/4
+Backend.TrelloAPI	public void totalTime(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Double>) 	total	B6	0/3
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	t	B10	0/6
+Frontend.Github	private void initialize() 	btnNewButton_1	B1	0/6
+Frontend.Github	private void initialize() 	btnNewButton_1_1	B1	0/6
+Frontend.Github	private void initialize() 	commit	B1	0/6
+Backend.TrelloAPI	public java.io.File toCSV() throws java.io.IOException	csv	B2	0/6
+Backend.TrelloAPI	public java.io.File toCSV() throws java.io.IOException	csv	B3	0/5
+Backend.GitHubAPI	public java.lang.String commits() throws java.io.IOException	c	B6	0/6
+Backend.TrelloAPI	public List<Frontend.PieChart> pieChart(List<Frontend.Tabela>, java.lang.String) 	pie	B4	0/5
+Frontend.Github	private void initialize() 	btnTag	B1	0/5
+Backend.TrelloAPI	public void contarAtividades(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Integer>) 	atividades	B2	0/5
+Backend.TrelloAPI	public void contarAtividades(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Integer>) 	atividades	B3	0/4
+Backend.TrelloAPI	public void contarAtividades(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Integer>) 	atividades	B4	0/3
+Backend.TrelloAPI	public void contarAtividades(com.julienvey.trello.domain.Card, HashMap<java.lang.String,java.lang.Integer>) 	atividades	B5	0/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	noArtifact	B6	0/5
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	noArtifact	B7	0/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	noArtifact	B8	0/2
+Backend.TrelloAPI	public List<Frontend.Tabela> humanResourcesCost() 	t	B3	0/4
+Backend.TrelloAPI	public List<Frontend.Tabela> sprintTime() 	t	B9	0/4
+Frontend.Github	private void initialize() 	lblNewLabel_1	B1	0/4
+Frontend.Github	private void initialize() 	lblNewLabel_1_1	B1	0/4
+Frontend.Github	private void initialize() 	lblNewLabel_1_1_1	B1	0/4
+Frontend.Github	private void initialize() 	lblNewLabel_1_2	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1_1_1_1	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1_1_1_2	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_1_1_1_3	B1	0/4
+Frontend.Trello	private void initialize() 	lblNewLabel_1_1_2_1_1_2	B1	0/4
+Backend.TrelloAPI	public List<com.julienvey.trello.domain.Card> getCardsOfList(java.lang.String) 	id	B1	0/4
+Backend.TrelloAPI	public List<com.julienvey.trello.domain.Card> getCardsOfList(java.lang.String) 	id	B2	0/3
+Backend.TrelloAPI	public List<com.julienvey.trello.domain.Card> getCardsOfList(java.lang.String) 	id	B3	0/2
+Backend.TrelloAPI	public List<Frontend.PieChart> pieChart(List<Frontend.Tabela>, java.lang.String) 	title	B4	0/3
+Backend.TrelloAPI	public void setSprints() 	s	B3	0/3
+Backend.TrelloAPI	public void setUp(java.lang.String, java.lang.String, java.lang.String) 	trelloApi	B1	0/3
+Frontend.Github	private void initialize() 	frame	B1	0/3
+Frontend.Trello	private void initialize() 	frame	B1	0/3
+Backend.TrelloAPI	public List<Frontend.Tabela> sprintTime() 	totalTime	B2	0/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	t	B1	3/9
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	t	B2	2/8
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	t	B12	0/6
+Backend.TrelloAPI	public java.lang.String sprintsText() 	retrospective	B3	2/5
+Backend.TrelloAPI	public java.lang.String sprintsText() 	retrospective	B4	1/3
+Backend.TrelloAPI	public java.lang.String sprintsText() 	retrospective	B9	0/2
+Backend.TrelloAPI	public java.lang.String sprintsText() 	review	B3	2/5
+Backend.TrelloAPI	public java.lang.String sprintsText() 	review	B4	1/3
+Backend.TrelloAPI	public java.lang.String sprintsText() 	review	B7	0/2
+Backend.TrelloAPI	public java.lang.String sprintsText() 	planning	B3	2/5
+Backend.TrelloAPI	public java.lang.String sprintsText() 	planning	B4	1/3
+Backend.TrelloAPI	public java.lang.String sprintsText() 	planning	B5	0/2
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	atividadesTotal	B13	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	atividadesTotal	B14	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	custoTotal	B13	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	custoTotal	B14	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	horasTotal	B13	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> artifact() 	horasTotal	B14	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	atividadesTotal	B15	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	atividadesTotal	B16	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	custoTotal	B15	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	custoTotal	B16	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	horasTotal	B15	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	horasTotal	B16	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	lixo	B1	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	lixo	B2	1/2
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	row	B1	1/3
+Backend.TrelloAPI	public List<Frontend.Tabela> noArtifact() 	row	B2	1/2
+Frontend.Sprint	public void reserLists(List<com.julienvey.trello.domain.Member>) 	previstos	B1	1/2
+Frontend.Sprint	public void reserLists(List<com.julienvey.trello.domain.Member>) 	realizados	B1	1/2
