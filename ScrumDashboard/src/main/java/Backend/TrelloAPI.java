@@ -27,6 +27,8 @@ import com.julienvey.trello.domain.TList;
 import com.julienvey.trello.impl.TrelloImpl;
 import com.julienvey.trello.impl.http.ApacheHttpClient;
 
+import Frontend.PieChart;
+import Frontend.Sprint;
 import Frontend.Tabela;
 
 /**
@@ -46,24 +48,25 @@ public class TrelloAPI
     private List<TList> lists;
     private List<Card> cards;
     private List<Tabela> tempo = new ArrayList<>();
-    private List<Tabela> custo = new ArrayList<>();
+    private List<Sprint> sprints = new ArrayList<>();
+    private HashMap<String, Double> totalTime = new HashMap<String, Double>();
     
    /**
     * Exports each team element information to a .csv file 
     * @throws IOException
     */
     
-    public void toCSV() throws IOException{
-    		
-    	tempoSprints();
-    	recursosHumanos();
-    	artifact();
-    	noArtifact();
+    public File toCSV() throws IOException{
+    	List<Tabela> tabelas = new ArrayList<>();
+    	tabelas.addAll(sprintTime());
+    	tabelas.addAll(humanResourcesCost());
+    	tabelas.addAll(artifact());
+    	tabelas.addAll(noArtifact());
     	
     		File file = new File("Data.csv"); 
     		file.createNewFile();
         	try (FileWriter csv = new FileWriter(file)) {
-				for(Tabela tabela: tempo){
+				for(Tabela tabela: tabelas){
 					//csv.write(tabela.getTitle()+"\n");
 					for(int i = 0; i<nomes.size(); i++){
 							for(int j = 0; j<tabela.getCol();j++) csv.write(tabela.getObject(i,j)+",");
@@ -72,24 +75,25 @@ public class TrelloAPI
 					}
 					csv.write("\n");
 				}
-			}				
+			}
+			return file;				
         
 	}
     
     
     public List<Tabela> noArtifact(){
-    	HashMap<String, Integer> horas = new HashMap<String, Integer>();
+    	HashMap<String, Double> horas = new HashMap<String, Double>();
     	HashMap<String, Integer> atividades = new HashMap<String, Integer>();
-    	HashMap<String, Integer> lixo = new HashMap<String, Integer>();
+    	HashMap<String, Double> lixo = new HashMap<String, Double>();
     	int row = 0;
 
     	for(Member m: nomes){
-    		horas.put(m.getUsername(),0);
+    		horas.put(m.getUsername(),0.0);
     		atividades.put(m.getUsername(),0);
-    		lixo.put(m.getUsername(),0);
+    		lixo.put(m.getUsername(),0.0);
     		row++;
     	}
-    
+    	tempo = new ArrayList<>();
 	    	for(Card c : cards){
 	    		int noArtifact=1;
 	    		List<Label> labels = c.getLabels();
@@ -99,7 +103,7 @@ public class TrelloAPI
 			    			}
 			    	}
 			    	if(noArtifact==1) {
-			    		contarHoras(c,horas,lixo);
+	    				totalTime(c,horas);
 			    		contarAtividades(c,atividades);
 			    	}
 			    	
@@ -108,30 +112,30 @@ public class TrelloAPI
 	    	Tabela t = new Tabela("No Artifact", row+1, 4);
 	    	t.addColumnName("Username",0);
 	    	t.addColumnName("Numero atividades",1);
-	    	t.addColumnName("Tempo total (min)",2);
-	    	t.addColumnName("Custo (min)",3);
+	    	t.addColumnName("Tempo total (horas)",2);
+	    	t.addColumnName("Custo (€)",3);
 	    	int x=0;
 	    	
 	    	for(Member m: nomes){
 	    		t.addData(m.getUsername(),x,0);
 	    		t.addData(atividades.get(m.getUsername()),x,1);
-	    		t.addData(horas.get(m.getUsername()),x,2);
+	    		t.addData(horas.get(m.getUsername())/60,x,2);
 	    		t.addData((horas.get(m.getUsername())/60)*20,x,3);
 	    		x++;
 	    	}
 		
 	    int atividadesTotal=0;
-    	int horasTotal=0;
-    	int custoTotal=0;
+    	double horasTotal=0.0;
+    	double custoTotal=0.0;
     	for(Member m: nomes){
     		atividadesTotal+=atividades.get(m.getUsername());
     		horasTotal+=horas.get(m.getUsername());
-    		custoTotal+=(horas.get(m.getUsername())/60)*20;
+    		custoTotal+=horas.get(m.getUsername())*20;
 	    } 
     	t.addData("Total",x,0);
 		t.addData(atividadesTotal,x,1);
-		t.addData(horasTotal,x,2);
-		t.addData(custoTotal,x,3);
+		t.addData(horasTotal/60,x,2);
+		t.addData(custoTotal/60,x,3);
 	  	t.createScrollPane();
     	tempo.add(t);
 
@@ -140,55 +144,52 @@ public class TrelloAPI
     
     
     public List<Tabela> artifact(){
-    	HashMap<String, Integer> horas = new HashMap<String, Integer>();
+    	HashMap<String, Double> horas = new HashMap<String, Double>();
     	HashMap<String, Integer> atividades = new HashMap<String, Integer>();
-    	HashMap<String, Integer> lixo = new HashMap<String, Integer>();
-    	int row = 0;
 
     	for(Member m: nomes){
-    		horas.put(m.getUsername(),0);
+    		horas.put(m.getUsername(),0.0);
     		atividades.put(m.getUsername(),0);
-    		lixo.put(m.getUsername(),0);
-    		row++;
     	}
     
+    	tempo = new ArrayList<>();
 	    	for(Card c : cards){
 	    		List<Label> labels = c.getLabels();
 			    	for(Label l : labels)
 			    			if(l.getName().equals("Commit")){
-					    		contarHoras(c,horas,lixo);
-					    		contarAtividades(c,atividades);
-			    			}
-			    	
+			    				totalTime(c,horas);
+					    		contarAtividades(c,atividades);			    	
+			    			}		    	
 			}   
 	    	
-	    	Tabela t = new Tabela("Artifact", row+1, 4);
+	    	Tabela t = new Tabela("Artifact", nomes.size()+1, 4);
 	    	t.addColumnName("Username",0);
 	    	t.addColumnName("Numero atividades",1);
-	    	t.addColumnName("Tempo total (min)",2);
-	    	t.addColumnName("Custo (min)",3);
+	    	t.addColumnName("Tempo total (horas)",2);
+	    	t.addColumnName("Custo (€)",3);
+	    	
 	    	int x=0;
 	    	
 	    	for(Member m: nomes){
 	    		t.addData(m.getUsername(),x,0);
 	    		t.addData(atividades.get(m.getUsername()),x,1);
-	    		t.addData(horas.get(m.getUsername()),x,2);
+	    		t.addData(horas.get(m.getUsername())/60,x,2);
 	    		t.addData((horas.get(m.getUsername())/60)*20,x,3);
 	    		x++;
 	    	}
-		
+	    	
 	    int atividadesTotal=0;
-    	int horasTotal=0;
-    	int custoTotal=0;
+    	double horasTotal=0.0;
+    	double custoTotal=0.0;
     	for(Member m: nomes){
     		atividadesTotal+=atividades.get(m.getUsername());
     		horasTotal+=horas.get(m.getUsername());
-    		custoTotal+=(horas.get(m.getUsername())/60)*20;
+    		custoTotal+=horas.get(m.getUsername())*20;
 	    } 
     	t.addData("Total",x,0);
 		t.addData(atividadesTotal,x,1);
-		t.addData(horasTotal,x,2);
-		t.addData(custoTotal,x,3);
+		t.addData(horasTotal/60,x,2);
+		t.addData(custoTotal/60,x,3);
 	  	t.createScrollPane();
     	tempo.add(t);
 
@@ -214,185 +215,83 @@ public class TrelloAPI
 }
     
     
-    public List<JPanel> pieChart(List<Tabela> tabelas, int n, String info){
-    	List<JPanel> charts = new ArrayList<>();
-    	int x=0;
-    	int count = 1;
-    	for(Tabela t : tabelas){   	
-	    	 while(count<=n){
-	    		 if(count<t.getCol()){
-		    		 DefaultPieDataset dataset = new DefaultPieDataset();
-			    	 for(Member m: nomes){
-			    		 dataset.setValue((String)t.getObject(x,0),(Number)t.getObject(x,count));
-				    	 x++;
-			    	 }
-			    	 x=0;
-			    	 String s = "";
-			    	 if(count==1) s = "\nRealizado" ; else s="\nPrevisto";
-			    	 JFreeChart chart = ChartFactory.createPieChart(
-				 	            t.getTitle()+s,   // chart title
-				 	            dataset,          // data
-				 	            true,             // include legend
-				 	            true,
-				 	            false);
-				 	            
-				 	 charts.add(new ChartPanel(chart)); 		    	
-	    		 }
-	    		 count++;  
-	    	 }
-	    	 count=1;
+    public List<PieChart> pieChart(List<Tabela> tabelas, String info){
+    	List<PieChart> charts = new ArrayList<>();
+    	for(Tabela t: tabelas){	
+    		for(int x=1; x<t.getCol(); x++){
+    			PieChart pie = new PieChart(t,info);
+    			String title="Realizadas";
+    			if(x==2) title = "Estimadas";
+    			pie.createChart(nomes,0,x,title);
+    			charts.add(pie);
+    		}
     	}
-    	for(JPanel c : charts)
-    	 JOptionPane.showMessageDialog(null, c, info, JOptionPane.PLAIN_MESSAGE);
     	return charts;
     }
-    
-    /**
-     * Returns a List<String> with every sprint
-     * @return
-     * a List<String> with every sprint
-     */
-    public List<String> getSprints(){
-    	List<String> sprints = new ArrayList<>();
-    	for(TList l: lists) 
-    		if(l.getName().equals("Sprint Planning"))
-    			for(Card c : cards) if(c.getIdList().equals(l.getId())) sprints.add(c.getName());
-    		
-    	return sprints;
-    	
-    } 
-
-    public List<Tabela> recursosHumanos(){
-    	List<String> sprints = getSprints(); 
-    	HashMap<String, Integer> realizados = new HashMap<String, Integer>();
-    	HashMap<String, Integer> previstos = new HashMap<String, Integer>();
-    	int row = 0;
-
-    	for(Member m: nomes){
-    		realizados.put(m.getUsername(),0);
-    		previstos.put(m.getUsername(),0);
-    		row++;
-    	}
-    	
-       custo = new ArrayList<>();
-    	
-    	for(String sprint: sprints){
-    		resetMap(realizados);
-    		resetMap(previstos);
-	    	for(Card c : cards){
-	    		List<Label> labels = c.getLabels();
-			    	for(Label l : labels){
-			    			if(l.getName().equals(sprint)){
-					    		contarHoras(c,realizados,previstos);
-			    			}
-			    	}
-			}   
-	    	Tabela t = new Tabela(sprint, row, 2);
-	    	int x=0;	    	
-	    	for(Member m: nomes){
-	    		t.addData(m.getUsername(),x,0);
-	    		t.addData((realizados.get(m.getUsername())/60)*20,x,1);
-	    		x++;
-	    	}
-	    	t.addColumnName("Username",0);
+       
+    public List<Tabela> humanResourcesCost(){
+    	List<Tabela> cost = new ArrayList<>();
+    	tempo = sprintTime();
+    	for(Tabela temp : tempo){
+    		Tabela t = new Tabela(temp.getTitle(), nomes.size(), 2);
+    		t.addColumnName("Username",0);
 	    	t.addColumnName("Custo recursos humanos (€)",1);
 	    	t.createScrollPane();
-	    	custo.add(t);
-	    	
-	    }
-    	resetMap(realizados);
-		resetMap(previstos);
-		
-		Tabela t = new Tabela("Total", row, 2);
-    	for (Card c : cards) contarHoras(c,realizados,previstos);  
-    	int x=0;
-    	for(Member m: nomes){
-    		t.addData(m.getUsername(),x,0);
-    		t.addData((realizados.get(m.getUsername())/60)*20,x,1);
-    		x++;
-	    } 
-    	t.addColumnName("Username",0);
-    	t.addColumnName("Custo recursos humanos (€)",1);
-    	t.createScrollPane();
-    	custo.add(t);
-    	return custo;
+    		for(int x=0; x<nomes.size();x++){
+    			t.addData((String) temp.getObject(x,0),x,0);
+    			for(int y = 1; y<2;y++) t.addData(((double) temp.getObject(x,y))*20.0,x,y);   				
+    		}
+    		cost.add(t);
+    	}   	
+    	return cost;
     }
    
-    
-    public List<Tabela> tempoSprints(){
-    	List<String> sprints = getSprints(); 
-    	HashMap<String, Integer> realizados = new HashMap<String, Integer>();
-    	HashMap<String, Integer> previstos = new HashMap<String, Integer>();
-    	int row = 0;
 
-    	for(Member m: nomes){
-    		realizados.put(m.getUsername(),0);
-    		previstos.put(m.getUsername(),0);
-    		row++;
-    	}
-    	
+    public List<Tabela> sprintTime(){
+    
     	tempo = new ArrayList<>();
     	
-    	for(String sprint: sprints){
-    		resetMap(realizados);
-    		resetMap(previstos);
-	    	for(Card c : cards){
-	    		List<Label> labels = c.getLabels();
-			    	for(Label l : labels){
-			    			if(l.getName().equals(sprint)){
-					    		contarHoras(c,realizados,previstos);
-			    			}
-			    	}
-			}   
-	    	Tabela t = new Tabela(sprint, row, 3);
-	    	int x=0;
+    	for(Member m: nomes) totalTime.put(m.getUsername(),0.0);
+       		
+    	for(Sprint sprint: sprints){	
+			
+
+    		sprint.addTimes(nomes);		  
+	    	Tabela t = new Tabela(sprint.getName(), nomes.size(), 3);
 	    	
+	    	t.addColumnName("Username",0);
+	    	t.addColumnName("Tempo realizado (horas)",1);
+	    	t.addColumnName("Tempo previsto (horas)",2);
+	    	
+	    	int x=0;   	
 	    	for(Member m: nomes){
 	    		t.addData(m.getUsername(),x,0);
-	    		t.addData(realizados.get(m.getUsername()),x,1);
-	    		t.addData(previstos.get(m.getUsername()),x,2);
+	    		t.addData(sprint.getActualTime(m)/60,x,1);
+	    		t.addData(sprint.getEstimatedTime(m)/60,x,2);
 	    		x++;
 	    	}
-	    	t.addColumnName("Username",0);
-	    	t.addColumnName("Tempo realizado (min)",1);
-	    	t.addColumnName("Tempo previsto (min)",2);
+	    	
 	    	t.createScrollPane();
 	    	tempo.add(t);
 	    }
-    	resetMap(realizados);
-		resetMap(previstos);
-		//pieChart(tabelas,2,"TOTAL DE TEMPO (MIN)");
-		
-		Tabela t = new Tabela("Total", row, 2);
-    	for (Card c : cards) contarHoras(c,realizados,previstos);  
+    	
+		Tabela t = new Tabela("Total", nomes.size(), 2);
+		t.addColumnName("Username",0);
+    	t.addColumnName("Tempo total (min)",1);
+    	for (Card c : cards) totalTime(c,totalTime);  
     	int x=0;
     	for(Member m: nomes){
     		t.addData(m.getUsername(),x,0);
-    		t.addData(realizados.get(m.getUsername()),x,1);
+    		t.addData(totalTime.get(m.getUsername())/60,x,1);
     		x++;
-	    } 
-    	t.addColumnName("Username",0);
-    	t.addColumnName("Tempo total (min)",1);
+	    }   	
     	t.createScrollPane();
-  
+    	
     	tempo.add(t);
-
     	return tempo;
     }
-    
-    /**
-     * Resets a HashMap<String, Integer>
-     * @param map
-     * the map that will be reset 
-     */
-    public void resetMap(HashMap<String, Integer> map){
-    	for(Member m: nomes){
-    		map.put(m.getUsername(),0);
-    	}
-    }
-    
    
-    public void contarHoras(Card c, HashMap<String, Integer> realizados, HashMap<String, Integer> previstos ){
+    public void totalTime(Card c, HashMap<String, Double> total){
       	
 			List<Action> actions = c.getActions();
 			for (Action a : actions){
@@ -404,15 +303,14 @@ public class TrelloAPI
 				    	|| temp.contains("global"))){
 							String[] arrOfStr = temp.split(" ", 3);
 							String[] previstas_realizadas = arrOfStr[2].split("/",2);
-							realizados.put(m.getUsername(),realizados.get(m.getUsername())+Integer.parseInt(previstas_realizadas[0]));
-							previstos.put(m.getUsername(),previstos.get(m.getUsername())+Integer.parseInt(previstas_realizadas[1].replaceAll("\\s+","")));
+							total.put(m.getUsername(),total.get(m.getUsername())+Double.parseDouble(previstas_realizadas[0]));
 					}
 				}
 			}		    		
 		return;
     }
-    
-    /**
+   
+   /**
      * returns the start and end date for each created function as a String
      * @return
      * the start and end date for each created function as a String
@@ -425,75 +323,101 @@ public class TrelloAPI
     	}
     	return s;
     }
-  
-    /**
+
+   /**
      * Returns, for each sprint, the result conclusions text
      * @return
      * a String with every Sprint text
      */
     //MELHORAR COM O GETLIST PELO ID
     public String sprintsText(){
-    	String s="";
-    	
-    	for (TList l : lists) 
-    		if(l.getName().contains("Sprint") && !l.getName().contains("Sprint Backlog")){
-    			s += l.getName().toUpperCase() + ": \n\r";
-    			for (Card c : cards) {
-    				if(c.getIdList().equals(l.getId())) s +=  c.getName() + ": \n\r " + c.getDesc() + "\n\r";
+    	String txt = "";
+    	for(Sprint sprint : sprints){
+    		txt += sprint.getName().toUpperCase() + "\n\r";
+    		String planning="PLANNING\n";
+        	String review="REVIEW\n";
+        	String retrospective="RETROSPECTIVE\n";
+    		List<Card> cards = sprint.getCards();
+    		for(Card card : cards){
+    				if(card.getIdList().equals(getListId("Sprint Planning"))) planning+=card.getDesc();
+    				if(card.getIdList().equals(getListId("Sprint Review"))) review+=card.getDesc();
+    				if(card.getIdList().equals(getListId("Sprint Retrospective"))) retrospective+=card.getDesc();
     			}
-    		}
-    	return s;
+    		
+    		txt+=planning+"\n\r"+review+"\n\r"+retrospective+"\n\r";
+    	}
+    	return txt;
     }
-    
-    
-    /**
+   
+   /**
      * Returns a String with every Product Backlog item for each Sprint
      * @return
      * every Product Backlog item for each Sprint as a String
      */
     public String productBacklog(){
-    	String id="";
-    	String s="";
-    	HashMap<String, String> itens = new HashMap<String, String>();
-    	List<String> sprints = getSprints();
-    	for(String sprint: sprints){
-    		itens.put(sprint,sprint.toUpperCase()+":\n");
-    	}
-    	
-    	for (TList l : lists) if(l.getName().contains("Product Backlog")) id = l.getId();
-    	
-    	for (Card c : cards) {
-    		if(c.getIdList().equals(id)){
-    		
-	    		List<Label> labels = c.getLabels();
-	    		for(Label l2 : labels)
-	    			 if(l2.getName().contains("Sprint")) itens.put(l2.getName(),itens.get(l2.getName())+"\n"+c.getName());
-    		}
-    	}
-    	
-    	for(String sprint: sprints){
-    		s+=  itens.get(sprint) + "\n\r";
-    	}
-    	return s;
-    }
-    /**
-     * Returns the start and end dates for every sprints as a String
-     * @return
-     * start and ending dates for every sprints as a String
-     */
-    public String sprintDates(){
     	String s="";
     	
-    	for (TList l : lists) 
-    		if(l.getName().contains("Sprint Planning"))
-    			for (Card c : cards) {
-    				String[] data = c.getDesc().split("___",3);
-    				if(c.getIdList().equals(l.getId())) s += c.getName()+ ":\n"+ data[1] + "\n\r";
-    			}
+    	for(Sprint sprint : sprints){
+    		List<Card> cards = sprint.getCards();
+    		s+=sprint.getText().toUpperCase();
+    		for(Card card : cards)
+    			if(card.getIdList().equals(getListId("Product Backlog"))) 
+    				s+=card.getName()+"\n";
+    		s+="\n";   		
+    	}
     	return s;
     }
     
+    public List<Card> getCardsOfList(String name){
+    	List<Card> list = new ArrayList<>();
+    	String id ="";
+    	for (TList l : lists) if(l.getName().contains(name)) id = l.getId();
+    	for(Card c : cards) if(c.getIdList().equals(id)) list.add(c);
+    	return list;
+    }
+    
+    private String getListId(String name){
+    	for (TList l : lists) if(l.getName().contains(name)) return l.getId();
+    	return "";
+    }
+    
+    public void setSprints(){
+    	List<Card> list = getCardsOfList("Sprint Planning");
+    	for(Card c : list){ 
+    		Sprint s = new Sprint(c.getName());
+    		String[] data = c.getDesc().split("___",3);
+    		s.setDate(data[1]);
+    		sprints.add(s);
+    	}
+     	addCardsToSprint();
+    } 
+  
     /**
+     * Returns a List<String> with every sprint
+     * @return
+     * a List<String> with every sprint
+     */  
+    public List<Sprint> getSprints(){
+    	return sprints;	
+    }
+    
+    public void addCardsToSprint(){
+    	for(Card card : cards){
+    		List<Label> labels = card.getLabels();
+    		for(Label l : labels){
+    			Sprint s = getSprint(l.getName());
+    			if(s!=null) s.addCard(card);
+    		}
+    	}
+    }
+    
+   
+    public Sprint getSprint(String name){
+    	for(Sprint s : sprints) if(s.getName().equals(name)) return s;
+    	return null;
+    }
+    
+   /**
      * returns the date project has started as a String
      * @return
      * project start date as a String
@@ -503,6 +427,8 @@ public class TrelloAPI
     	return null;
     }	
     
+<
+
     /**
      * Returns the project ID as a String
      * @return
@@ -511,14 +437,14 @@ public class TrelloAPI
     public String projectID(){
     	 return board.getName()+ " - id: " +board.getId();
     }
+  
     /**
      * Creates a new Card in an existing List
      * @param s
      * List name where the card will be created
      * @param card_name
      * New card name
-     */
-    
+     */   
     public void createBoard(String s, String card_name){
 	    for (TList l : lists) {
 	    	if(l.getName().equals(s)){
@@ -529,12 +455,12 @@ public class TrelloAPI
 	    	}
 	    }
     }
+  
     /**
      * Returns A string with all Lists at this Trello project
      * @return
      * All Lists in the Trello project as a String
-     */
-    
+     */    
     public String lists(){ 	
     	 String string = "";
          for (TList list : lists) {
@@ -575,21 +501,8 @@ public class TrelloAPI
     	nomes = board.fetchMembers();
     	lists = board.fetchLists();
     	cards = board.fetchCards();
+    	setSprints();
     }
 	
-    /*public static void main( String[] args )
-    {
-    	String trelloKey= "a04256995af78e5ea7bff424d82cf477";
-        String trelloAccessToken="47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";
-        String boardID = "60eae4ca19ea426cbba3021a";
-        Trello trelloApi = new TrelloImpl(trelloKey, trelloAccessToken, new ApacheHttpClient());
-      
-        Board board;
-       // teste();
-           // List<TList> lists = quadro.fetchLists();
-           // for (TList lista : lists) {
-           //     System.out.println(lista.getName()+"- "+ lista.getId()+"-"+lista.getIdBoard());
-           // }
-        //}
-    }*/
 }
+
