@@ -291,7 +291,12 @@ public class TrelloAPI
     	tempo.add(t);
     	return tempo;
     }
-   
+    
+    /**
+     * calculates the time that a member spent on a given card and then adds it to the total work time of the member
+     * @return
+     * a Trello card and an HashMap with the members and their work time
+     */
     public void totalTime(Card c, HashMap<String, Double> total){
       	
 			List<Action> actions = c.getActions();
