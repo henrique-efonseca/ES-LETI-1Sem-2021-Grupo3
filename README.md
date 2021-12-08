@@ -11,14 +11,12 @@ We implemented all the features that were asked on the project assignment.
 
 ## Group Nº3
 
-| Member | Student Number |
-|---	|--- |
-|[António Costa](https://github.com/appca1-iscte) |nº 92691 |
-|[Bernardo Bento](https://github.com/Bernardo-Bento) |nº 92877 |
-|[Henrique Fonseca](https://github.com/henrique-efonseca) |nº 94089 |
-|[Ricardo Paulo](https://github.com/pauletasm) |nº 93134 |
+ <b> Members: </b> <br>
 
-<li> <a href="https://github.com/appca1-iscte"> António Costa </a> , nº 92691 <br>
+<li> <a href="https://github.com/appca1-iscte"> António Costa</a>, nº 92691 <br>
+<li> <a href="https://github.com/Bernardo-Bento"> Bernardo Bento</a>, nº 92877 <br>
+<li> <a href="https://github.com/henrique-efonseca"> Henrique Fonseca</a>, nº 94089 <br>
+<li> <a href="https://github.com/pauletasm"> Ricardo Paulo</a>, nº 93134 <br>  
 
 <br>
 
