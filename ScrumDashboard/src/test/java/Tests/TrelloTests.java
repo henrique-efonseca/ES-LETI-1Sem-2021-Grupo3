@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import Backend.TrelloAPI;
 import Frontend.Sprint;
 import Frontend.Tabela;
-
+//Junit tests
 public class TrelloTests {
 	static String s1= "a04256995af78e5ea7bff424d82cf477";
 	static String s2 = "47fd71497e5ffcb377ea49fd0302a42f66ba0a411829da35dac1ade25025e501";

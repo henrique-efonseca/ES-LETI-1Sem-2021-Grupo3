@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.kohsuke.github.GHTag;
 
 import Backend.GitHubAPI;
-
+//Junit tests
 class GithubTests {
 	
 	static GitHubAPI app,app2;	
