@@ -56,7 +56,6 @@ public class TrelloAPI
     * Exports each team element information to a .csv file 
     * @throws IOException
     */
-    
     public File toCSV() throws IOException{
     	List<Tabela> tabelas = new ArrayList<>();
     	tabelas.addAll(sprintTime());
@@ -81,6 +80,11 @@ public class TrelloAPI
         
 	}
     
+    /**
+     * @return
+     * returns a table with the times that each member worked on cards that didn't originated artificats on github
+     * 
+     */
     
     public List<Tabela> noArtifact(){
     	HashMap<String, Double> horas = new HashMap<String, Double>();
@@ -144,6 +148,18 @@ public class TrelloAPI
     }
     
     
+    
+    /**
+     * calculates the number of card a member worked on
+     * @return
+     * 
+     * @param s1
+     * Card
+     * 
+     * @param s2
+     * HashMap with a member and the number card he worked on
+     * 
+     */
     public List<Tabela> artifact(){
     	HashMap<String, Double> horas = new HashMap<String, Double>();
     	HashMap<String, Integer> atividades = new HashMap<String, Integer>();
@@ -197,7 +213,17 @@ public class TrelloAPI
     	return tempo;
     }
 
-    
+    /**
+    * calculates the number of card a member worked on
+    * @return
+    * 
+    * @param s1
+    * Card
+    * 
+    * @param s2
+    * HashMap with a member and the number card he worked on
+    * 
+    */
     public void contarAtividades(Card c, HashMap<String, Integer> atividades){
       	
 		List<Action> actions = c.getActions();
@@ -215,7 +241,16 @@ public class TrelloAPI
 	return;
 }
     
-    
+    /**
+     * 
+     * @return
+     * creates a pie chart
+     * 
+     * @param s1
+     * List with tables
+     * @param s2 
+     * Title
+     */
     public List<PieChart> pieChart(List<Tabela> tabelas, String info){
     	List<PieChart> charts = new ArrayList<>();
     	for(Tabela t: tabelas){	
@@ -230,6 +265,12 @@ public class TrelloAPI
     	return charts;
     }
        
+    
+    /**
+     * 
+     * @return
+     * returns the the total labour cost (related to the work time) for each member
+     */
     public List<Tabela> humanResourcesCost(){
     	List<Tabela> cost = new ArrayList<>();
     	tempo = sprintTime();
@@ -248,6 +289,12 @@ public class TrelloAPI
     }
    
 
+    /**
+     * 
+     * @return
+     * returns the predicted time and the total work time for every sprint
+     */
+    
     public List<Tabela> sprintTime(){
     
     	tempo = new ArrayList<>();
@@ -293,9 +340,14 @@ public class TrelloAPI
     }
     
     /**
-     * calculates the time that a member spent on a given card and then adds it to the total work time of the member
+     *calculates the time that a member spent on a given card and then adds it to the total work time of the member
      * @return
-     * a Trello card and an HashMap with the members and their work time
+     *  
+     * @param s1 
+     * Card
+     * 
+     *  @param s2
+     *  hashMap with the members and his total work time
      */
     public void totalTime(Card c, HashMap<String, Double> total){
       	
