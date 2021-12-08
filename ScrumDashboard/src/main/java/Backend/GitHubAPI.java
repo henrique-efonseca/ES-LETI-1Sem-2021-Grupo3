@@ -120,6 +120,11 @@ import com.julienvey.trello.domain.Member;
 		}
 		
 		
+		/**
+		 * @return
+		 * Returns a HashMap with every tag on the main branch and it's release date
+		 *
+		 */
 		public HashMap<GHTag, String> getTags() throws IOException {
 			HashMap<GHTag, String> tags_dates = new HashMap<GHTag, String>();		
 			PagedIterable<GHTag> tags = repository.listTags();		
