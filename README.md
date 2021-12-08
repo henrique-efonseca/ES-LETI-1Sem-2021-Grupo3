@@ -21,7 +21,7 @@ We implemented all the features that were asked on the project assignment.
 | Deliverable | Link |
 |---	|--- |
 | Software | [link](https://github.com/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3/tree/develop/ScrumDashboard) |
-| JavaDoc |[link](https://github.com/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3/tree/develop/ScrumDashboard/doc) |
+| JavaDoc |[link](https://henrique-efonseca.github.io/ES-LETI-1Sem-2021-Grupo3/) |
 | Unitary Tests (JUnit) |[link]() |
 | Relatório Code Smells |[link](https://github.com/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3/tree/develop/ScrumDashboard/CodeSmells) |
 
