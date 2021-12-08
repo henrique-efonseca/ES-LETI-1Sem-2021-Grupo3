@@ -18,6 +18,8 @@ We implemented all the features that were asked on the project assignment.
 |[Henrique Fonseca](https://github.com/henrique-efonseca) |nº 94089 |
 |[Ricardo Paulo](https://github.com/pauletasm) |nº 93134 |
 
+<li> <a href="https://github.com/appca1-iscte"> António Costa, nº 92691 </a> <br>
+
 <br>
 
 ## Deliverables
