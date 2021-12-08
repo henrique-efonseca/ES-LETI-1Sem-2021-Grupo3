@@ -5,7 +5,9 @@ The application obtains the project data from the Trello and Github platforms, f
 
 This project was developed in Java and we mainly used two APIs: https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/ and https://docs.github.com/pt/rest.
 
-## Group Members
+We implemented all the features that were asked on the project assignment.
+
+## Group Nº3
 
 | Member | Student Number |
 |---	|--- |
