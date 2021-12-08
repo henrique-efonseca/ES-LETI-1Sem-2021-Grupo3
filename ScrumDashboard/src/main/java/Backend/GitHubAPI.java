@@ -68,7 +68,7 @@ import com.julienvey.trello.domain.Member;
 					}
 				}
 				for(GHUser m : names) s+=commit_map.get(m.getName())+"\n\r";
-				
+			System.out.println(s);	
 			return s;
 		} 
 

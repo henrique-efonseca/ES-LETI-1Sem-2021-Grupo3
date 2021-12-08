@@ -169,18 +169,18 @@ public class Github {
             public void actionPerformed(ActionEvent e) {
             	HashMap<GHTag, String> tags_dates;
 				try {
+					String tags="";
 					tags_dates = app.getTags();
 					for (GHTag tag : tags_dates.keySet()) {
-						JOptionPane.showMessageDialog(null,"Tag: " + tag.getName() + "\n" + "Date: " + tags_dates.get(tag) , "Tag:", JOptionPane.PLAIN_MESSAGE);
-	    				
+	    				tags+="Tag: " + tag.getName() + "\n" + "Date: " + tags_dates.get(tag)+"\n\r";
 	    			}
+					JOptionPane.showMessageDialog(null,tags, "Tag:", JOptionPane.PLAIN_MESSAGE);
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-    			
-    			
-    			
+ 		
             }
         });
         btnTag.setForeground(new Color(240, 248, 255));
