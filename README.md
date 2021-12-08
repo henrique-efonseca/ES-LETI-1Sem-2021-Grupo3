@@ -18,7 +18,7 @@ We implemented all the features that were asked on the project assignment.
    <li> <a href="https://github.com/Bernardo-Bento"> Bernardo Bento</a>, nº 92877 <br>
    <li> <a href="https://github.com/henrique-efonseca"> Henrique Fonseca</a>, nº 94089 <br>
    <li> <a href="https://github.com/pauletasm"> Ricardo Paulo</a>, nº 93134 <br>  
-<ul>
+</ul>
 <br>
 
 ## Deliverables
