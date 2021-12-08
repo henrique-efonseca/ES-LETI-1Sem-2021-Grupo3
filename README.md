@@ -7,6 +7,8 @@ This project was developed in Java and we mainly used two APIs: https://develope
 
 We implemented all the features that were asked on the project assignment.
 
+<br>
+
 ## Group Nº3
 
 | Member | Student Number |
@@ -15,6 +17,8 @@ We implemented all the features that were asked on the project assignment.
 |[Bernardo Bento](https://github.com/Bernardo-Bento) |nº 92877 |
 |[Henrique Fonseca](https://github.com/henrique-efonseca) |nº 94089 |
 |[Ricardo Paulo](https://github.com/pauletasm) |nº 93134 |
+
+<br>
 
 ## Deliverables
 
@@ -25,6 +29,8 @@ We implemented all the features that were asked on the project assignment.
 | Unitary Tests (JUnit) |[link](https://henrique-efonseca.github.io/junit/) |
 | Relatório Code Smells |[link](https://github.com/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3/tree/develop/ScrumDashboard/CodeSmells) |
 | Trello | [link](https://github.com/henrique-efonseca/ES-LETI-1Sem-2021-Grupo3/tree/develop/Trello) |
+
+<br>
 
 ## Snapshot
 
